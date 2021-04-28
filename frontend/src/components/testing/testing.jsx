@@ -1,9 +1,13 @@
-import React from "react"
-
+import React, { useEffect, useState } from "react"
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css'
 export default function Testing(props){
+   const [text, setText] = useState("")
+   const handleChange = (value) => {
+      setText(value)
+   }
    return(
-      <div>
-         uwu
-      </div>
+      <ReactQuill value={text} onChange={handleChange}/>
+
    )
 }
