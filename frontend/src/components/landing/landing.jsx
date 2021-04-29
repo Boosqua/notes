@@ -19,6 +19,15 @@ const useStyles = createUseStyles({
          // animation: "$forFun 1000ms"
       }
    },
+   headerAfter: {
+      fontSize: 50,
+      gridArea: "header",
+      // animation: "$headerDropIn 1750ms",
+      // animationTimingFunction: "ease-out",
+      '&:hover': {
+         // animation: "$forFun 1000ms"
+      }
+   },
    hContainer: {
       display: "grid",
       gridTemplateColumns: "[leftH] 10fr [header] auto [rightH] 10fr",
@@ -209,6 +218,8 @@ function Header(props){
    const signupRef = useRef(null)
    const loginRef = useRef(null)
    const aboutRef = useRef(null)
+
+   
    const handleClick = (ref) => {
       return() => {
          ref.current.click()
@@ -216,7 +227,7 @@ function Header(props){
    }
    return(
       <div className={classes.hContainer}>
-         <div className={classes.header}>
+         <div className={ classes.header } >
             NoteFly
          </div>
          <div className={classes.sessionButtonContainer}>
@@ -421,7 +432,6 @@ function LandingModal(props){
    const classes = useStyles()
    const [show, setShow] = useState(true)
    const handleKey = (e) => {
-      // debugger
       if( e.key === "Escape"){
          setShow(false)
          dispatch(clearSessionErrors())
@@ -444,13 +454,7 @@ function LandingModal(props){
    }
    return(
       show ? 
-      <div  className={classes.modalContainer} onClick={handleClose} onKeyDown={(e) => {
-         // if(e.key === "Escape"){
-         //    e.preventDefault();
-         //    setShow(false)
-         //    dispatch(clearSessionErrors())
-         // }
-      }}>
+      <div  className={classes.modalContainer} onClick={handleClose}>
          <div className={classes.modalInner}>
             {props.children}
          </div>
@@ -462,9 +466,10 @@ function LandingModal(props){
 
 export default function Landing(props){
    const classes = useStyles()
+   
    return (
       <div>
-         <Header/>
+         <Header />
          <div className={classes.welcomeContainer}>
             <div className={classes.welcomeMessage}>
                <span className={classes.h1Template}>
