@@ -227,7 +227,7 @@ function Header(props){
    }
    return(
       <div className={classes.hContainer}>
-         <div className={ classes.header } >
+         <div className={ props.w ? classes.header : classes.headerAfter } >
             NoteFly
          </div>
          <div className={classes.sessionButtonContainer}>
@@ -466,10 +466,13 @@ function LandingModal(props){
 
 export default function Landing(props){
    const classes = useStyles()
-   
+   const [w, setW] = useState(true)
+   useEffect(() => {
+      setTimeout( () => setW(false), 2000)
+   }, [])
    return (
       <div>
-         <Header />
+         <Header w={w}/>
          <div className={classes.welcomeContainer}>
             <div className={classes.welcomeMessage}>
                <span className={classes.h1Template}>

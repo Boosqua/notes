@@ -1,6 +1,7 @@
 import React from "react"
 import { createUseStyles } from "react-jss";
 import {Quill} from "react-quill"
+import bullet from "../../img/bullet.png"
 export default function CustomToolbar(){
    const classes = useStyles()
    return(
@@ -42,9 +43,24 @@ export default function CustomToolbar(){
     </button>
     <button className="ql-customHeader"> 
     <div className={classes.fontButton}>
-      {/* <div className={classes.cb}> */}
+      <div className={classes.header}>
          H
-      {/* </div> */}
+      </div>
+    </div>
+    </button>
+    <button className="ql-customOL"> 
+    <div className={classes.fontButton}>
+      <div className={""}>
+         1.
+      </div>
+    </div>
+    </button>
+    <button className="ql-customUL"> 
+    <div className={classes.fontButton}>
+      <div className={classes.header}>
+         {/* <img src={bullet} /> */}
+         bullet
+      </div>
     </div>
     </button>
   </div>
@@ -52,30 +68,53 @@ export default function CustomToolbar(){
 }
 
 function insertBold() {
-      console.log("?")
+   if(this.quill.getSelection()){  
       let bold = this.quill.getFormat().bold
       this.quill.format('bold', !Boolean(bold));
+   }
 }
 function insertItalic() {
-   let italic = this.quill.getFormat().italic
-   this.quill.format('italic', !Boolean(italic))
+   if(this.quill.getSelection()){  
+      let italic = this.quill.getFormat().italic
+      this.quill.format('italic', !Boolean(italic))
+   }
 }
 function insertUnderline() {
-   let underline = this.quill.getFormat().underline
-   this.quill.format('underline', !Boolean(underline))
+   if(this.quill.getSelection()){  
+      let underline = this.quill.getFormat().underline
+      this.quill.format('underline', !Boolean(underline))
+   }
 }
 function insertST() {
-   let strike = this.quill.getFormat().strike
-   this.quill.format('strike', !Boolean(strike))
+   if(this.quill.getSelection()){  
+      let strike = this.quill.getFormat().strike
+      this.quill.format('strike', !Boolean(strike))
+   }
 }
 function insertHeader() {
-
-   let header = this.quill.getFormat().header
-   this.quill.format('header', !Boolean(header))
+   if(this.quill.getSelection()){
+      let header = this.quill.getFormat().header
+      this.quill.format('header', !Boolean(header))
+   }
 }
 function insertCB() {
-   let cb = this.quill.getFormat()['code-block']
-   this.quill.format('code-block', !Boolean(cb))
+   if(this.quill.getSelection()){  
+      let cb = this.quill.getFormat()['code-block']
+      this.quill.format('code-block', !Boolean(cb))
+   }
+}
+
+function insertOL() {
+   if(this.quill.getSelection()){  
+      let orderedList = this.quill.getFormat().list === "ordered"
+      this.quill.format("list" , !Boolean(orderedList) ? "ordered" : false)
+   }
+}
+function insertUL() {
+   if(this.quill.getSelection()){  
+      let orderedList = this.quill.getFormat().list === "bullet"
+      this.quill.format("list" , !Boolean(orderedList) ? "bullet" : false)
+   }
 }
 export const modules = {
       toolbar: {
@@ -86,7 +125,9 @@ export const modules = {
             customUnderline: insertUnderline,
             customStrike: insertST,
             customCB: insertCB,
-            customHeader: insertHeader
+            customHeader: insertHeader,
+            customOL: insertOL,
+            customUL: insertUL,
          }
       },
       clipboard: {
@@ -95,8 +136,8 @@ export const modules = {
    };
 export const formats = [
     'header',
-    'bold', 'italic', 'underline', 'strike', "code-block",
-    'list', 'bullet', 'indent',
+    'bold', 'italic', 'underline', 'strike', "code-block", 'list',
+    {list : "ordered"}, {list: "bullet"}, 'bullet', 'indent',
     'link', 'image'
   ]
 const toolbarStyles = {
@@ -132,6 +173,9 @@ const useStyles = createUseStyles({
    cb: {
       fontSize: 12
    },
+   header: {
+
+   },
    fontButton: {
       padding: "2px 5px",
       width: "fit-content",
@@ -149,9 +193,6 @@ const useStyles = createUseStyles({
 
 let Block = Quill.import('blots/block');
 
-class BlockquoteBlot extends Block { }
-BlockquoteBlot.blotName = 'blockquote';
-BlockquoteBlot.tagName = 'blockquote';
 
 class HeaderBlot extends Block {
   static formats(node) {
@@ -162,5 +203,8 @@ HeaderBlot.blotName = 'header';
 // Medium only supports two header sizes, so we will only demonstrate two,
 // but we could easily just add more tags into this array
 HeaderBlot.tagName = ['H1', 'H2'];
-
+class OrderedBlot extends Block {}
+OrderedBlot.blotName = 'orderedList';
+OrderedBlot.tagName = 'ol';
 Quill.register(HeaderBlot)
+// Quill.register(OrderedBlot)

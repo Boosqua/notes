@@ -25,12 +25,13 @@ function insertStar() {
 
 
 function QuillTest(props){
-   const [text, setText] = useState("")
+   const [text, setText] = useState("Testing text")
    
 
 
    const handleChange = (value) => {
       setText(value)
+      console.log(value)
    }
    return <ReactQuill modules={modules}
                      value={text} 
@@ -43,7 +44,6 @@ export default function Testing(props){
    return(
       <div>
          <CustomToolbar />
-         <div>Bukaki</div>
          <QuillTest />
       </div>
    )
