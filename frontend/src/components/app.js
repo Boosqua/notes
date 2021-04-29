@@ -1,13 +1,17 @@
 import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Testing from "./testing/testing"
 import Landing from "./landing/landing"
+import Logout from "./testing/logout"
 const App = () => (
-  <div>
-     {/* <Testing/> */}
-     <Landing />
-  </div>
+   <Switch>
+      <Route exact path="/" component={Landing}/>
+      <AuthRoute exact path="/login" component={Landing}/>
+      <AuthRoute exact path="/signup" component={Landing}/>
+      <ProtectedRoute path="/@me" component={Logout}/>
+      <Route exact path="/about" component={Landing} />
+   </Switch>
 );
 
 export default App;

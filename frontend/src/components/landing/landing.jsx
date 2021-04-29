@@ -1,7 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { createUseStyles, ThemeProvider, useTheme } from "react-jss";
 import image from "../../img/LOL.jpeg"
 import clsx from "clsx";
+import {useDispatch, useSelector} from "react-redux"
+import {signup, login, clearSessionErrors} from "../../actions/session_actions"
+import { Redirect, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 //font-family: 'Oswald', sans-serif;
 //filter: brightness(100%)
 const useStyles = createUseStyles({
@@ -113,6 +117,7 @@ const useStyles = createUseStyles({
       color: "white",
       border: "1px solid #e27d5e",
       borderRadius: 20,
+      marginRight: 10,
       background: "#41b3a1",
       animation: "$modalEnter 1000ms"
    },
@@ -122,9 +127,39 @@ const useStyles = createUseStyles({
       flexDirection: "column",
       minWidth: 200
    },
+   errors: {
+      fontSize: 12,
+      color: "red",
+      fontStyle: "italic",
+      textTransform: "uppercase"
+   },
+   formButtonC: {
+      marginTop: 10,
+      display: "flex",
+      justifyContent: "center",
+   },
+   inputSection: {
+      // background: "rgba(1, 1, 1, .1)",
+      padding: ".3em .5em",
+
+      boxShadow: "inset 19px -19px 14px 0px rgba(8,159,154,0.65)",
+      marginTop: ".1em",
+      fontSize: 16,
+      borderRadius: 5
+   },
    borderBottom: {
       borderBottom: "2px solid #089f9a",
-
+   },
+   formButton: {
+      width: "fit-content",
+      padding: "5px 1em",
+      backgroundColor: "#e27d5e",
+      borderRadius: 5,
+      "&:hover": {
+         padding: "5px 2em",
+         transition: "500ms",
+         cursor: "pointer"
+      }
    },
    //animations
    "@keyframes hoverButton": {
@@ -170,12 +205,13 @@ const useStyles = createUseStyles({
 
 function Header(props){
    const classes = useStyles()
-   const [login, setLogin] = useState(false)
-   const [signUp, setSignUp] = useState(false)
-   const [about, setAbout] = useState(false)
-   const handleClick = (bool, setBool) => {
+   const location = useLocation().pathname
+   const signupRef = useRef(null)
+   const loginRef = useRef(null)
+   const aboutRef = useRef(null)
+   const handleClick = (ref) => {
       return() => {
-         setBool(true)
+         ref.current.click()
       }
    }
    return(
@@ -184,53 +220,243 @@ function Header(props){
             NoteFly
          </div>
          <div className={classes.sessionButtonContainer}>
-            <div className={clsx({[classes.sessionB]: !signUp}, {[classes.selected]: signUp})} onClick={handleClick(signUp, setSignUp)}>
-               <LandingModal close={() => setSignUp(false)}show={signUp}> <SessionForm/> </LandingModal>
+            <div className={clsx({[classes.sessionB]: !(location === "/signup")}, {[classes.selected]: (location === "/signup")})} onClick={handleClick(signupRef)}>
+               {
+                  location === "/signup" ? <LandingModal> <SignUpForm/></LandingModal> : null
+               }
                sign up
             </div>
             <div className={classes.div} />
-            <div className={clsx({[classes.sessionB]: !login}, {[classes.selected]: login})} onClick={handleClick(login, setLogin)}>
-               <LandingModal close={() => setLogin(false)} show={login}> hi! </LandingModal>
+            <div className={clsx({[classes.sessionB]: !(location === "/login")}, {[classes.selected]: (location === "/login")})} onClick={handleClick(loginRef)}>
+               {
+                  location === "/login" ? <LandingModal> <LoginForm/> </LandingModal> : null
+               }
                login
             </div>
             <div className={classes.div} />
-            <div className={clsx({[classes.sessionB]: !about}, {[classes.selected]: about})} onClick={handleClick(about, setAbout)}>
-               <LandingModal close={() => setAbout(false)} show={about}> hi! </LandingModal>
+            <div className={clsx({[classes.sessionB]: !(location === "/about")}, {[classes.selected]: (location === "/about")})} onClick={handleClick(aboutRef)}>
+               {
+                  location === "/about" ? <LandingModal> I'll Put info here later!</LandingModal> : null
+               }
                about
             </div>
          </div>
+         <Link ref={loginRef} style={{display: "none"}}to="/login" />
+         <Link ref={signupRef} style={{display: "none"}}to="/signup" />
+         <Link ref={aboutRef} style={{display: "none"}}to="/about" />
       </div>
    )
 }
-function SessionForm(props){
+
+
+function SignUpForm(props){
    const classes = useStyles()
+   const errors = useSelector(state => state.errors.session)
+   const [name, setName] = useState("")
+   const [email, setEmail] = useState("")
+   const [password, setPassword] = useState("")
+   const [password2, setPassword2] = useState("")
+   const dispatch = useDispatch()
+   const inputEl = useRef(null)
+
+   useEffect(()=> {
+      inputEl.current.focus()
+   }, [])
+   const handleChange = (cb) => {
+      return (e) => {
+         cb(e.currentTarget.value)
+      }
+   }
+   const handleSubmit = () => {
+      const user = {
+         username: name,
+         email: email,
+         password: password,
+         password2: password2
+      }
+      signup(user)(dispatch)
+      setPassword("")
+      setPassword2("")
+   }
    return ( 
-      <div className={classes.sessionForm}>
+      <div className={classes.sessionForm} onKeyDown={(e) => {
+         if( e.key === "Enter" ){
+            e.preventDefault()
+            handleSubmit()
+         }
+      }}>
          <div className={classes.borderBottom}>
             <div className={classes.h3Template}>
                Welcome To NoteFly!
             </div>
          </div>
-      </div>
+         <form>
+            <div>
+               Username
+            </div>
+            <div className={classes.inputSection}>
+               <input ref={inputEl}ype="text" value={name} onInput={handleChange(setName)}/>
+            </div>
+            {
+               !Array.isArray(errors) && errors.username ?
+               (<div className={classes.errors}>
+                  {errors.username}
+               </div>)
+               : null
+            }
+            <div>
+               Email
+            </div>
+            <div className={classes.inputSection}>
+               <input type="text" value={email} onInput={handleChange(setEmail)}/>
+            </div>
+            {
+               !Array.isArray(errors) && errors.email ?
+               (<div className={classes.errors}>
+                  {errors.email}
+               </div>)
+               : null
+            }
+            <div>
+               Password
+            </div>
+            <div className={classes.inputSection}>
+               <input type="password" value={password} onInput={handleChange(setPassword)}/>
+            </div>
+            {
+               !Array.isArray(errors) && errors.password ?
+               (<div className={classes.errors}>
+                  {errors.password}
+               </div>)
+               : null
+            }
+            <div>
+               Confirm Password
+            </div>
+            <div className={classes.inputSection}>
+               <input type="password" value={password2} onInput={handleChange(setPassword2)}/>
+            </div>
+            {
+               !Array.isArray(errors) && errors.password2 ?
+               (<div className={classes.errors}>
+                  {errors.password2}
+               </div>)
+               : null
+            }
+            <div className={classes.formButtonC}><div className={classes.formButton} onClick={handleSubmit}>submit</div></div>
+         </form>
+         </div>
    )
 }
+
+function LoginForm(props){
+   const classes = useStyles();
+   const errors = useSelector(state => state.errors.session)
+   const [email, setEmail] = useState("")
+   const [password, setPassword] = useState("")
+   const dispatch = useDispatch()
+   const inputEl = useRef(null)
+   useEffect(()=> {
+      inputEl.current.focus()
+   }, [])
+   const handleChange = (cb) => {
+      return (e) => {
+         cb(e.currentTarget.value)
+      }
+   }
+   const handleSubmit = () => {
+      const user = {
+         email: email,
+         password: password
+      }
+      login(user)(dispatch)
+   }
+   return ( 
+      <div className={classes.sessionForm} onKeyDown={(e) => {
+         if( e.key === "Enter" ){
+            e.preventDefault()
+            handleSubmit()
+         }
+      }}>
+         <div className={classes.borderBottom}>
+            <div className={classes.h3Template}>
+               Welcome Back!
+            </div>
+         </div>
+         <form>
+            <div>
+               Email
+            </div>
+            <div className={classes.inputSection}>
+               <input ref={inputEl}ype="text" value={email} onInput={handleChange(setEmail)}/>
+            </div>
+            {
+               !Array.isArray(errors) && errors.email ?
+               (<div className={classes.errors}>
+                  {errors.email}
+               </div>)
+               : null
+            }
+            <div>
+               Password
+            </div>
+            <div className={classes.inputSection}>
+               <input type="password" value={password} onInput={handleChange(setPassword)}/>
+            </div>
+            {
+               !Array.isArray(errors) && errors.password ?
+               (<div className={classes.errors}>
+                  {errors.password}
+               </div>)
+               : null
+            }
+            <div className={classes.formButtonC}><div className={classes.formButton} onClick={handleSubmit}>submit</div></div>
+         </form>
+         </div>
+   )
+
+}
 function LandingModal(props){
+   const dispatch = useDispatch()
    const classes = useStyles()
-   const handleClose = (e) => {
+   const [show, setShow] = useState(true)
+   const handleKey = (e) => {
+      // debugger
+      if( e.key === "Escape"){
+         setShow(false)
+         dispatch(clearSessionErrors())
+      }
+   }
+   useEffect(() => {
+      document.addEventListener("keydown", handleKey)
+      return function(){
+         document.removeEventListener("keydown", handleKey)
+      }
+   }, [])
+
+   const handleClose = (e, option = false) => {
       e.preventDefault()
       e.stopPropagation()
-      if( e.target === e.currentTarget ){
-         props.close()
+      if( e.target === e.currentTarget || option){
+         setShow(false)
+         dispatch(clearSessionErrors())
       }
    }
    return(
-      props.show ? 
-      <div className={classes.modalContainer} onClick={handleClose}>
+      show ? 
+      <div  className={classes.modalContainer} onClick={handleClose} onKeyDown={(e) => {
+         // if(e.key === "Escape"){
+         //    e.preventDefault();
+         //    setShow(false)
+         //    dispatch(clearSessionErrors())
+         // }
+      }}>
          <div className={classes.modalInner}>
             {props.children}
          </div>
+         <input style={{display: "none"}}/>
          </div>
-         : null
+         : <Redirect to="/"/>
    )
 }
 
