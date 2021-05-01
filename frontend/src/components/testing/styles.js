@@ -15,17 +15,19 @@ const styles =  createUseStyles({
       padding: 10
    },
    heSpin: {
-      animation: '$spin 1s linear',
+      animation: '$spin 500ms linear',
    },
    hR: {
       background: "red",
       padding: 10
    },
    hC: {
-      borderRight: "2px solid rgba(8, 159, 154, .25)",
-      borderLeft: "2px solid rgba(8, 159, 154, .25)",
+      borderRight: "2px solid rgb(8 159 154 / 71%) ",
+      borderLeft: "2px solid rgb(8 159 154 / 71%)",
       width: "100%",
-      padding: 10
+      padding: 10,
+      display: 'flex',
+      flexDirection: 'row'
    },
    heButtons: {
       width: 'fit-content',

@@ -11,56 +11,56 @@ export default function CustomToolbar(){
     <button className="ql-customBold"> 
       <div className={classes.fontButton}>
          <div className={classes.bold}>
-            b
+            <i class="fas fa-bold"></i>
          </div>
       </div>
     </button>
     <button className="ql-customItalic"> 
       <div className={classes.fontButton}>
          <div className={classes.italic}>
-            i
+            <i class="fas fa-italic"></i>
          </div>
       </div>
     </button>
     <button className="ql-customUnderline"> 
       <div className={classes.fontButton}>
          <div className={classes.underline}>
-            U
+            <i class="fas fa-underline"></i>
          </div>
       </div>
     </button>
       <button className="ql-customStrike"> 
       <div className={classes.fontButton}>
          <div className={classes.strike}>
-            S
+            <i class="fas fa-strikethrough"></i>
          </div>
       </div>
       </button>
     <button className="ql-customCB"> 
       <div className={classes.fontButton}>
          <div className={classes.cb}>
-            {"</>"}
+            <i class="fas fa-code"></i>
          </div>
       </div>
       </button>
     <button className="ql-customHeader"> 
       <div className={classes.fontButton}>
          <div className={classes.header}>
-            H
+            <i class="fas fa-heading"></i>
          </div>
       </div>
       </button>
     <button className="ql-customOL"> 
       <div className={classes.fontButton}>
          <div className={""}>
-            1.
+            <i class="fas fa-list-ol"></i>
          </div>
       </div>
     </button>
     <button className="ql-customUL"> 
       <div className={classes.fontButton}>
          <div className={classes.header}>
-            bullet
+            <i class="fas fa-list"></i>
          </div>
       </div>
     </button>
@@ -163,7 +163,7 @@ const useStyles = createUseStyles({
       textDecoration: "line-through"
    },
    cb: {
-      fontSize: 12
+
    },
    header: {
 
@@ -174,9 +174,9 @@ const useStyles = createUseStyles({
    fontButton: {
       padding: "2px 5px",
       width: "fit-content",
-      margin: "0 .1em",
-      fontSize: 20,
-      color: "black",
+      // margin: "0 .1em",
+      // fontSize: 20,
+      color: "white",
       fontFamily: "Merriweather",
       // background: "blue",
       "&:hover": {
