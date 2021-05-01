@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {signup, login, clearSessionErrors} from "../../actions/session_actions"
 import { Redirect, useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { setLoaded } from "../../actions/util_actions"
 //font-family: 'Oswald', sans-serif;
 //filter: brightness(100%)
 const useStyles = createUseStyles({
@@ -218,8 +219,15 @@ function Header(props){
    const signupRef = useRef(null)
    const loginRef = useRef(null)
    const aboutRef = useRef(null)
-
-   
+   const animation = useSelector(store => store.util.loaded)
+   const dispatch = useDispatch()
+   useEffect(() => {
+      return function cleanup(){
+         if( animation === true ){
+            dispatch(setLoaded(false))
+         }
+      }
+   }, [])
    const handleClick = (ref) => {
       return() => {
          ref.current.click()
@@ -227,7 +235,7 @@ function Header(props){
    }
    return(
       <div className={classes.hContainer}>
-         <div className={ props.w ? classes.header : classes.headerAfter } >
+         <div className={ animation ? classes.header : classes.headerAfter } >
             NoteFly
          </div>
          <div className={classes.sessionButtonContainer}>
@@ -252,6 +260,7 @@ function Header(props){
                about
             </div>
          </div>
+         {/* there has to be a better way lol */}
          <Link ref={loginRef} style={{display: "none"}}to="/login" />
          <Link ref={signupRef} style={{display: "none"}}to="/signup" />
          <Link ref={aboutRef} style={{display: "none"}}to="/about" />
@@ -466,13 +475,9 @@ function LandingModal(props){
 
 export default function Landing(props){
    const classes = useStyles()
-   const [w, setW] = useState(true)
-   useEffect(() => {
-      setTimeout( () => setW(false), 2000)
-   }, [])
    return (
       <div>
-         <Header w={w}/>
+         <Header />
          <div className={classes.welcomeContainer}>
             <div className={classes.welcomeMessage}>
                <span className={classes.h1Template}>

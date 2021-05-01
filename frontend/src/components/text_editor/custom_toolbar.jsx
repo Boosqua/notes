@@ -1,72 +1,73 @@
-import React from "react"
+import React, { useRef } from "react"
 import { createUseStyles } from "react-jss";
 import {Quill} from "react-quill"
-import bullet from "../../img/bullet.png"
+// tool bar component
 export default function CustomToolbar(){
    const classes = useStyles()
+   const keyRef = useRef(null)
+
    return(
    <div id="toolbar">
     <button className="ql-customBold"> 
-    <div className={classes.fontButton}>
-      <div className={classes.bold}>
-         b
+      <div className={classes.fontButton}>
+         <div className={classes.bold}>
+            b
+         </div>
       </div>
-    </div>
     </button>
     <button className="ql-customItalic"> 
-    <div className={classes.fontButton}>
-      <div className={classes.italic}>
-         i
+      <div className={classes.fontButton}>
+         <div className={classes.italic}>
+            i
+         </div>
       </div>
-    </div>
     </button>
     <button className="ql-customUnderline"> 
-    <div className={classes.fontButton}>
-      <div className={classes.underline}>
-         U
+      <div className={classes.fontButton}>
+         <div className={classes.underline}>
+            U
+         </div>
       </div>
-    </div>
     </button>
-    <button className="ql-customStrike"> 
-    <div className={classes.fontButton}>
-      <div className={classes.strike}>
-         S
+      <button className="ql-customStrike"> 
+      <div className={classes.fontButton}>
+         <div className={classes.strike}>
+            S
+         </div>
       </div>
-    </div>
-    </button>
+      </button>
     <button className="ql-customCB"> 
-    <div className={classes.fontButton}>
-      <div className={classes.cb}>
-         {"</>"}
+      <div className={classes.fontButton}>
+         <div className={classes.cb}>
+            {"</>"}
+         </div>
       </div>
-    </div>
-    </button>
+      </button>
     <button className="ql-customHeader"> 
-    <div className={classes.fontButton}>
-      <div className={classes.header}>
-         H
+      <div className={classes.fontButton}>
+         <div className={classes.header}>
+            H
+         </div>
       </div>
-    </div>
-    </button>
+      </button>
     <button className="ql-customOL"> 
-    <div className={classes.fontButton}>
-      <div className={""}>
-         1.
+      <div className={classes.fontButton}>
+         <div className={""}>
+            1.
+         </div>
       </div>
-    </div>
     </button>
     <button className="ql-customUL"> 
-    <div className={classes.fontButton}>
-      <div className={classes.header}>
-         {/* <img src={bullet} /> */}
-         bullet
+      <div className={classes.fontButton}>
+         <div className={classes.header}>
+            bullet
+         </div>
       </div>
-    </div>
     </button>
   </div>
   )
 }
-
+//custom button functions
 function insertBold() {
    if(this.quill.getSelection()){  
       let bold = this.quill.getFormat().bold
@@ -114,8 +115,10 @@ function insertUL() {
    if(this.quill.getSelection()){  
       let orderedList = this.quill.getFormat().list === "bullet"
       this.quill.format("list" , !Boolean(orderedList) ? "bullet" : false)
+      debugger
    }
 }
+//modules
 export const modules = {
       toolbar: {
          container: "#toolbar",
@@ -134,27 +137,16 @@ export const modules = {
          matchVisual: false,
       }
    };
+
+// formats
 export const formats = [
     'header',
     'bold', 'italic', 'underline', 'strike', "code-block", 'list',
     {list : "ordered"}, {list: "bullet"}, 'bullet', 'indent',
     'link', 'image'
   ]
-const toolbarStyles = {
-   bold: {
 
-   },
-   fontButton: {
-      padding: ".1em .4em",
-      margin: "0 .25em",
-      fontSize: 20,
-      color: "black",
-      "&:hover": {
-         cursor: "pointer"
-      }
-   }
-}
-
+// styling
 const useStyles = createUseStyles({
    bold: {
       textTransform: "uppercase",
@@ -176,6 +168,9 @@ const useStyles = createUseStyles({
    header: {
 
    },
+   hidden: {
+      display: "none"
+   },
    fontButton: {
       padding: "2px 5px",
       width: "fit-content",
@@ -190,21 +185,14 @@ const useStyles = createUseStyles({
    }
 })
 
-
+// add custom header node
 let Block = Quill.import('blots/block');
-
-
 class HeaderBlot extends Block {
   static formats(node) {
     return HeaderBlot.tagName.indexOf(node.tagName) + 1;
   }
 }
+
 HeaderBlot.blotName = 'header';
-// Medium only supports two header sizes, so we will only demonstrate two,
-// but we could easily just add more tags into this array
 HeaderBlot.tagName = ['H1', 'H2'];
-class OrderedBlot extends Block {}
-OrderedBlot.blotName = 'orderedList';
-OrderedBlot.tagName = 'ol';
 Quill.register(HeaderBlot)
-// Quill.register(OrderedBlot)
