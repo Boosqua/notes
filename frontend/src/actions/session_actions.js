@@ -1,6 +1,6 @@
 import * as APIUtil from '../util/session_api_util';
 import jwt_decode from 'jwt-decode';
-
+import {fetchFolders} from "./folder_actions"
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
@@ -42,6 +42,7 @@ export const login = user => dispatch => (
         localStorage.setItem('jwtToken', token);
         APIUtil.setAuthToken(token);
         const decoded = jwt_decode(token);
+        fetchFolders(decoded.id)(dispatch)
         dispatch(receiveCurrentUser(decoded))
     })
     .catch(err => {

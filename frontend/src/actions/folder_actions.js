@@ -25,16 +25,16 @@ export const clearFolderErrors = () => ({
 
 export const fetchFolders = (userId) => (dispatch) => (
    APIUtil.fetchFolders(userId)
-      .then(folders => dispatch(receiveFolders(folders)))
+      .then(res => dispatch(receiveFolders(res.data)))
       .catch(err => dispatch(receiveFolderErrors(err)))
 )
 export const updateFolder = (folderData) => (dispatch) => (
    APIUtil.updateFolder(folderData)
-      .then(folder => dispatch(receiveFolder(folder)))
+      .then(res => dispatch(receiveFolder(res.data)))
       .catch(err => dispatch(receiveFolderErrors(err)))
 )
 export const createFolder = (folderData) => (dispatch) => (
    APIUtil.createFolder(folderData)
-      .then(folder => dispatch(receiveFolder(folder)))
+      .then(res => dispatch(receiveFolder(res.data)))
       .catch(err => dispatch(receiveFolderErrors(err)))
 )
