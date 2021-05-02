@@ -1,18 +1,13 @@
 import {createUseStyles} from 'react-jss'
 
 const styles =  createUseStyles({
-   hGrid: {
-      display: 'flex',
-      position: 'fixed',
-      left: 0,
-      top: 0,
-      flexDirection: 'row',
-      width: "100vw",
-      boxShadow: "0 5px 10px rgba(8, 159, 154, .25)",
-      zIndex: 1,
-   },
    hL: {
-      padding: 10
+      padding: 10,
+      display: 'flex',
+      flexDirection: 'column',
+      height: "100vh",
+      borderRight: "2px solid rgba(0,0,0,.1)",
+      background: "hsl(15.5, 57.1%, 61.6%)"
    },
    heSpin: {
       animation: '$spin 500ms linear',
@@ -23,7 +18,7 @@ const styles =  createUseStyles({
    },
    hC: {
       borderRight: "2px solid rgb(8 159 154 / 71%) ",
-      borderLeft: "2px solid rgb(8 159 154 / 71%)",
+      
       width: "100%",
       padding: 10,
       display: 'flex',
@@ -32,6 +27,7 @@ const styles =  createUseStyles({
    heButtons: {
       width: 'fit-content',
       height: 'fit-content',
+      marginLeft: 5,
       '&:hover': {
          cursor: "pointer",
          animation: '$hecolor 2s linear',

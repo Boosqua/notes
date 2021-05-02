@@ -2,12 +2,14 @@ import React, { useRef } from "react"
 import { createUseStyles } from "react-jss";
 import {Quill} from "react-quill"
 // tool bar component
-export default function CustomToolbar(){
+export default function CustomToolbar({children}){
    const classes = useStyles()
    const keyRef = useRef(null)
 
    return(
    <div id="toolbar">
+      {children}
+      <div className={classes.tbDiv}></div>
       <button className="ql-customHeader"> 
          <div className={classes.fontButton}>
             <div className={classes.header}>
@@ -156,9 +158,9 @@ const useStyles = createUseStyles({
       fontWeight: 800
    },
    tbDiv: {
-      borderRight: "1px solid rgb(8 159 154 / 71%) ",
-      margin: "0 5px",
-      height: '100%'
+      borderBottom: "2px solid rgba(0,0,0,.1) ",
+      margin: "5px 0",
+      width: '100%',
    },
    italic: {
       textTransform: "uppercase",
@@ -180,12 +182,11 @@ const useStyles = createUseStyles({
       display: "none"
    },
    fontButton: {
-      padding: "2px 5px",
+      // padding: "2px 5px",
       width: "fit-content",
       // margin: "0 .1em",
       // fontSize: 20,
       color: "white",
-      fontFamily: "Merriweather",
       // background: "blue",
       "&:hover": {
          cursor: "pointer"

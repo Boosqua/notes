@@ -24,6 +24,12 @@ li {
 }
 #toolbar {
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    /* border: 1px solid rgb(8 159 154 / 71%); */
+}
+
+button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
