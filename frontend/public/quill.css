@@ -22,3 +22,8 @@ li {
    max-width: inherit;
    padding: 10px;
 }
+#toolbar {
+   display: flex;
+   flex-direction: row;
+   /* border: 1px solid rgb(8 159 154 / 71%); */
+}

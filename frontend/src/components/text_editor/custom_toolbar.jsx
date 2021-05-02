@@ -8,6 +8,14 @@ export default function CustomToolbar(){
 
    return(
    <div id="toolbar">
+      <button className="ql-customHeader"> 
+         <div className={classes.fontButton}>
+            <div className={classes.header}>
+               <i class="fas fa-heading"></i>
+            </div>
+         </div>
+      </button>
+   <div className={classes.tbDiv}></div>
     <button className="ql-customBold"> 
       <div className={classes.fontButton}>
          <div className={classes.bold}>
@@ -29,27 +37,22 @@ export default function CustomToolbar(){
          </div>
       </div>
     </button>
-      <button className="ql-customStrike"> 
+    <div className={classes.tbDiv}></div>
+   <button className="ql-customStrike"> 
       <div className={classes.fontButton}>
          <div className={classes.strike}>
             <i class="fas fa-strikethrough"></i>
          </div>
       </div>
-      </button>
+   </button>
     <button className="ql-customCB"> 
       <div className={classes.fontButton}>
          <div className={classes.cb}>
             <i class="fas fa-code"></i>
          </div>
       </div>
-      </button>
-    <button className="ql-customHeader"> 
-      <div className={classes.fontButton}>
-         <div className={classes.header}>
-            <i class="fas fa-heading"></i>
-         </div>
-      </div>
-      </button>
+   </button>
+   <div className={classes.tbDiv}></div>
     <button className="ql-customOL"> 
       <div className={classes.fontButton}>
          <div className={""}>
@@ -151,6 +154,11 @@ const useStyles = createUseStyles({
    bold: {
       textTransform: "uppercase",
       fontWeight: 800
+   },
+   tbDiv: {
+      borderRight: "1px solid rgb(8 159 154 / 71%) ",
+      margin: "0 5px",
+      height: '100%'
    },
    italic: {
       textTransform: "uppercase",

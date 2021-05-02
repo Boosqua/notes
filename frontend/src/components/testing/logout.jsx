@@ -12,9 +12,6 @@ export default function Logout(props){
    return (
       <div className={styles.hGrid}>
          <div className={`${styles.hL}`}>
-            <i class="fas fa-camera"></i>
-         </div>
-         <div className={`${styles.hC}`}>
             <div className={styles.heButtons} onClick={() => {
                if(!animate) {
                   setAnimate(true)
@@ -26,6 +23,8 @@ export default function Logout(props){
                   <i class={collapse ? "fas fa-chevron-right" : "fas fa-chevron-left"}></i>
                </div>
             </div>
+         </div>
+         <div className={`${styles.hC}`}>
             <Toolbar/>
          </div>
          <div className={`${styles.hR}`}>
