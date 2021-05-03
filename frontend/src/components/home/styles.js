@@ -1,39 +1,4 @@
-import React, { useState } from "react"
-import { createUseStyles } from "react-jss"
-import { useSelector } from "react-redux";
-
-
-
-
-export default function Testing(props){
-   const [collapse, setCollapse] = useState(false)
-   const classes = useStyles({collapse: collapse});
-   return(
-      <div className={classes.TestContainer}>
-         <div className={classes.testMenu}>Hi!</div>
-         <HomeHeader setCollapse={() => {setCollapse(!collapse)}}/>
-      </div>
-   )
-}
-
-
-function HomeHeader({setCollapse}) {
-   const username = useSelector(state => state.session.user.name)
-   const welcomeMessage = username[username.length - 1] === 's' ? 
-      "' Workspaces" :
-      "'s Workspaces"
-   const classes = useStyles();
-   return (
-      <div className={classes.homeHC}>
-         <div className={classes.menuIcon} onClick={setCollapse}> <i class="fas fa-bars"></i> </div>
-         <div className={classes.homeHeader}>{`${username}${welcomeMessage}`}</div>
-         <div className={classes.rightFlex}>
-         <div className={classes.infoIcon}><i class="fas fa-user"></i></div>
-         {/* <div className={classes.infoIcon}><i class="fas fa-info"></i></div> */}
-         </div>
-      </div>
-   )
-}
+import {createUseStyles} from "react-jss"
 
 const useStyles = createUseStyles({
    homeHC: {
@@ -76,7 +41,8 @@ const useStyles = createUseStyles({
    },
    homeHeader: {
       gridArea: "header",
-      fontSize: 30
+      fontSize: 30,
+      fontWeight: "bold"
    },
    rightFlex: {
       gridArea: "rightH",
@@ -101,3 +67,5 @@ const useStyles = createUseStyles({
       }
    }
 })
+
+export default useStyles;

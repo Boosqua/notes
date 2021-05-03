@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Testing from "./testing/testing"
 import Landing from "./landing/landing"
 import Home from "./home"
@@ -13,6 +13,9 @@ const App = () => (
       <ProtectedRoute path="/@me" component={Home}/>
       <Route exact path="/about" component={Landing} />
       <Route exact path="/testing" component={Testing} />
+      <Route path="*">
+         <Redirect to="/"/>
+      </Route>
    </Switch>
 );
 

@@ -1,15 +1,36 @@
 import React from "react"
-import Sidebar from "./sidebar/sidebar"
+import Home from "./home/home"
 import { createUseStyles } from "react-jss"
+import { Switch, Route, useRouteMatch } from "react-router"
+import { useSelector, useDispatch } from "react-redux";
+import {fetchFolders} from "../actions/folder_actions"
+import { setDataFetch } from "../actions/util_actions";
 
-export default function Logout(props){
-   const classes = useStyles()
+export default function UserRoutes(props) {
+   let { path, url } = useRouteMatch();
+   const [dataFetch, userId] = useSelector( state => [state.util.dataFetch, state.session.user.id])
+   const dispatch = useDispatch()
+   if(!dataFetch){
+      fetchFolders(userId)(dispatch).then(() => dispatch(setDataFetch(true)))
+   }
    return (
-      <div className={classes.home}>
-         <Sidebar/>
-      </div>
+      <Switch>
+         <Route path={`${path}`} component={Home}/>
+
+      </Switch>
    )
 }
+
+
+
+// logout(props){
+//    const classes = useStyles()
+//    return (
+//       <div className={classes.home}>
+//          <Sidebar/>
+//       </div>
+//    )
+// }
 
 const useStyles = createUseStyles({
    home: {

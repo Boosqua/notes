@@ -72,7 +72,7 @@ router.post('/register', (req, res) => {
         bcrypt.compare(password, user.password)
         .then(isMatch => {
             if (isMatch) {
-            const payload = {id: user.id, name: user.username, email: user.email};
+            const payload = {id: user.id, name: user.username, email: user.email, memberSince: user.createdAt};
 
             jwt.sign(
                 payload,

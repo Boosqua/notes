@@ -120,7 +120,6 @@ function insertUL() {
    if(this.quill.getSelection()){  
       let orderedList = this.quill.getFormat().list === "bullet"
       this.quill.format("list" , !Boolean(orderedList) ? "bullet" : false)
-      debugger
    }
 }
 //modules

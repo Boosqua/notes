@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { createUseStyles, ThemeProvider, useTheme } from "react-jss";
+import { createUseStyles } from "react-jss";
 import image from "../../img/LOL.jpeg"
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux"
@@ -16,18 +16,12 @@ const useStyles = createUseStyles({
       gridArea: "header",
       animation: "$headerDropIn 1750ms",
       animationTimingFunction: "ease-out",
-      '&:hover': {
-         // animation: "$forFun 1000ms"
-      }
+      fontWeight: "bold"
    },
    headerAfter: {
       fontSize: 50,
       gridArea: "header",
-      // animation: "$headerDropIn 1750ms",
-      // animationTimingFunction: "ease-out",
-      '&:hover': {
-         // animation: "$forFun 1000ms"
-      }
+      fontWeight: "bold"
    },
    hContainer: {
       display: "grid",
@@ -44,7 +38,7 @@ const useStyles = createUseStyles({
       paddingRight: ".5em"
    },
    sessionB: {
-      margin: "0",
+      margin: "0 .1em",
       padding: ".3em .75em",
       borderRadius: ".5em",
       height: "fit-content",
@@ -68,9 +62,8 @@ const useStyles = createUseStyles({
    },
    div: {
       width: 0,
-      height: "50%",
+      height: "2em",
       border: "1px solid #089f9a",
-      margin: "0 5px"
    },
    //landing body;
    welcomeContainer: {
@@ -191,11 +184,6 @@ const useStyles = createUseStyles({
          transform: "translatey(0)"
       }
    },
-   "@keyframes forFun": {
-      "50%": {
-         fontSize:3000
-      }
-   },
    "@keyframes slow":{
              "to": {
                backgroundPosition: "200% center"
@@ -219,6 +207,8 @@ function Header(props){
    const signupRef = useRef(null)
    const loginRef = useRef(null)
    const aboutRef = useRef(null)
+   const homeRef = useRef(null)
+   const loggedIn = useSelector(state => state.session.isAuthenticated)
    const animation = useSelector(store => store.util.loaded)
    const dispatch = useDispatch()
    useEffect(() => {
@@ -236,34 +226,50 @@ function Header(props){
    return(
       <div className={classes.hContainer}>
          <div className={ animation ? classes.header : classes.headerAfter } >
-            NoteFly
+            <span className={classes.gradientText}>NoteFly</span>
          </div>
          <div className={classes.sessionButtonContainer}>
-            <div className={clsx({[classes.sessionB]: !(location === "/signup")}, {[classes.selected]: (location === "/signup")})} onClick={handleClick(signupRef)}>
-               {
-                  location === "/signup" ? <LandingModal> <SignUpForm/></LandingModal> : null
-               }
-               sign up
-            </div>
-            <div className={classes.div} />
-            <div className={clsx({[classes.sessionB]: !(location === "/login")}, {[classes.selected]: (location === "/login")})} onClick={handleClick(loginRef)}>
-               {
-                  location === "/login" ? <LandingModal> <LoginForm/> </LandingModal> : null
-               }
-               login
-            </div>
-            <div className={classes.div} />
-            <div className={clsx({[classes.sessionB]: !(location === "/about")}, {[classes.selected]: (location === "/about")})} onClick={handleClick(aboutRef)}>
-               {
-                  location === "/about" ? <LandingModal> I'll Put info here later!</LandingModal> : null
-               }
-               about
-            </div>
+            {
+               loggedIn ? 
+                  <div className={classes.sessionButtonContainer}>
+                        <div className={classes.sessionB} onClick={handleClick(homeRef)}>
+                           <i class="fas fa-house-user"></i>
+                           &nbsp;&nbsp;&nbsp;Home
+                        </div>
+                  </div>
+               :
+               (
+               <div className={classes.sessionButtonContainer}>
+                  <div className={clsx({[classes.sessionB]: !(location === "/signup")}, {[classes.selected]: (location === "/signup")})} onClick={handleClick(signupRef)}>
+                     {
+                        location === "/signup" ? <LandingModal> <SignUpForm/></LandingModal> : null
+                     }
+                     sign up
+                  </div>
+                  <div className={classes.div} />
+                  <div className={clsx({[classes.sessionB]: !(location === "/login")}, {[classes.selected]: (location === "/login")})} onClick={handleClick(loginRef)}>
+                     {
+                        location === "/login" ? <LandingModal> <LoginForm/> </LandingModal> : null
+                     }
+                     login
+                  </div>
+                  <div className={classes.div} />
+                  <div className={clsx({[classes.sessionB]: !(location === "/about")}, {[classes.selected]: (location === "/about")})} onClick={handleClick(aboutRef)}>
+                     {
+                        location === "/about" ? <LandingModal> I'll Put info here later!</LandingModal> : null
+                     }
+                     about
+                  </div>
+               </div>
+               )
+            }
          </div>
          {/* there has to be a better way lol */}
          <Link ref={loginRef} style={{display: "none"}}to="/login" />
          <Link ref={signupRef} style={{display: "none"}}to="/signup" />
          <Link ref={aboutRef} style={{display: "none"}}to="/about" />
+         <Link ref={homeRef} style={{display: "none"}}to="/@me" />
+
       </div>
    )
 }
