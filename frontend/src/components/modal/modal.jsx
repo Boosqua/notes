@@ -43,6 +43,7 @@ const useStyles = createUseStyles({
       background: "rgba(0, 0, 0, .2)",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center" 
+      justifyContent: "center" ,
+      zIndex: 10
    }
 })

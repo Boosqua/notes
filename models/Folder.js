@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require("bcryptjs");
 
 const FolderSchema = new Schema(
   {
@@ -20,6 +19,15 @@ const FolderSchema = new Schema(
     public: {
        type: Boolean,
        default: true
+    },
+    color: {
+       type: String,
+       default: "white",
+       required: true
+    },
+    tags: {
+       type: Array,
+       required: false
     }
   },
   {

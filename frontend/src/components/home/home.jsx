@@ -3,6 +3,7 @@ import HomeHeader from "./home_header"
 import useStyles from "./styles"
 import { useSelector } from "react-redux";
 import FolderIndex from "../folder/folder_index"
+import FolderShow from "../folder/folder_show"
 export default function Testing(props){
    const [collapse, setCollapse] = useState(false)
    const [animate, setAnimate] = useState(false)
@@ -26,7 +27,10 @@ export default function Testing(props){
                setStall(false)
             }, 750)
          }}/>
-         <div className={classes.folderMenu}><FolderIndex animate={animate} collapse={collapse}></FolderIndex></div>
+         <div className={classes.folderMenu}>
+            <FolderIndex animate={animate} collapse={collapse}/>
+            <FolderShow header={welcomeMessage} />
+            </div>
       </div>
    )
 }

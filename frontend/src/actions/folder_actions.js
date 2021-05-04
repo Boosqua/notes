@@ -23,18 +23,15 @@ export const clearFolderErrors = () => ({
 
 })
 
-export const fetchFolders = (userId) => (dispatch) => (
-   APIUtil.fetchFolders(userId)
-      .then(res => dispatch(receiveFolders(res.data)))
-      .catch(err => dispatch(receiveFolderErrors(err)))
-)
-export const updateFolder = (folderData) => (dispatch) => (
-   APIUtil.updateFolder(folderData)
-      .then(res => dispatch(receiveFolder(res.data)))
-      .catch(err => dispatch(receiveFolderErrors(err)))
-)
-export const createFolder = (folderData) => (dispatch) => (
-   APIUtil.createFolder(folderData)
-      .then(res => dispatch(receiveFolder(res.data)))
-      .catch(err => dispatch(receiveFolderErrors(err)))
-)
+export const fetchFolders = (userId) => (dispatch) =>
+  APIUtil.fetchFolders(userId)
+    .then((res) => dispatch(receiveFolders(res.data)))
+    .catch((err) => dispatch(receiveFolderErrors(err.response.data)));
+export const updateFolder = (folderData) => (dispatch) =>
+  APIUtil.updateFolder(folderData)
+    .then((res) => dispatch(receiveFolder(res.data)))
+    .catch((err) => dispatch(receiveFolderErrors(err.response.data)));
+export const createFolder = (folderData) => (dispatch) =>
+  APIUtil.createFolder(folderData)
+    .then((res) => dispatch(receiveFolder(res.data)))
+    .catch((err) => dispatch(receiveFolderErrors(err.response.data)));

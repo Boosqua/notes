@@ -7,15 +7,16 @@ const useStyles = createUseStyles({
     width: "100vw",
     height: "fit-content",
     //  boxShadow: "3px 5px 5px 0 rgba(8, 159, 154, .25)",
-    zIndex: 1,
+    background: "rgb(77 217 195)",
+
+    zIndex: 0,
     padding: 10,
   },
   menuIcon: {
     margin: "0 .1em",
     padding: ".2em .5em",
-    color: (options) => (options.collapse ? "white" : "#e27d5e"),
-    background: (options) =>
-      options.collapse ? "" : "hsl(171deg 47% 48%)",
+    color: (options) => (!options.collapse ? "white" : "#e27d5e"),
+    //  background: (options) => (!options.collapse ? "" : "#e27d5e"),
     borderRadius: ".5em",
     height: "fit-content",
     width: "fit-content",
@@ -24,14 +25,15 @@ const useStyles = createUseStyles({
     "&:hover": {
       cursor: "pointer",
       color: "#e27d5e",
-      background: "hsl(171deg 47% 48%)",
+      // background: "hsl(171deg 47% 48%)",
       transition: " 500ms",
       animationTimingFunction: "ease-in-out",
     },
   },
   folderMenu: {
-    display: (options) => (options && options.collapse ? "block" : "block"),
+    display: "flex",
     height: "100vh",
+    flexDirection: "row"
   },
   div: {
     width: 0,
@@ -64,8 +66,8 @@ const useStyles = createUseStyles({
     fontSize: 20,
     "&:hover": {
       cursor: "pointer",
+      // background: "#e27d5e",
       color: "#e27d5e",
-      background: "hsl(171deg 47% 48%)",
       transition: " 500ms",
       animationTimingFunction: "ease-in-out",
     },

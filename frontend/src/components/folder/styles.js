@@ -4,7 +4,13 @@ const useStyles = createUseStyles({
   rrFlex: {
     display: "flex",
     flexDirection: "column-reverse",
-    height: "50%",
+  },
+  rrFlex2: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    position: "relative",
+    top: 0,
+    right: "-1em",
   },
   row: {
     display: "flex",
@@ -46,11 +52,11 @@ const useStyles = createUseStyles({
       return options && options.collapse ? "$slideIn 750ms" : "$slideOut 750ms";
     },
     overflow: "hidden",
-    animationTimingFunction: "ease-in-out",
+    animationTimingFunction: "linear",
     padding: 10,
-    width: "fit-content",
+    maxWidth: "300px",
     height: "100%",
-    background: "hsl(171deg 47% 48%)",
+    background: "rgb(77 217 195)",
   },
   folderLink: {
     fontSize: 20,
@@ -59,7 +65,10 @@ const useStyles = createUseStyles({
     fontWeight: "bolder",
     display: "flex",
     flexDirection: "row",
+    flexWrap: "nowrap",
     alignItems: "center",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
     "&:hover": {
       cursor: "pointer",
       backgroundColor: "#e27d5e",
@@ -77,6 +86,9 @@ const useStyles = createUseStyles({
     width: "fit-content",
     padding: "5px 1em",
     backgroundColor: "#e27d5e",
+   overflow: "hidden",
+   textOverflow: "clip",
+   whiteSpace: "nowrap",
     borderRadius: 5,
     boxShadow: "1px 1px 4px #808080",
     "&:hover": {
@@ -93,7 +105,7 @@ const useStyles = createUseStyles({
   folderCC: {
     height: "fit-content",
     animation: "$slideUp 1s",
-    padding: 30,
+    padding: "5px 30px 30px 30px",
     background: "#e27d5e",
     border: "1px solid #e8a97c",
     borderRadius: 10,
@@ -177,14 +189,46 @@ const useStyles = createUseStyles({
       cursor: "pointer",
     },
   },
+  tags: {
+    fontSize: 12,
+    background: "#c48c9d",
+    padding: ".5em",
+    borderRadius: ".25em",
+    width: "fit-content",
+    margin: "0 .25em .75em .25em",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  closeIcon: {
+     marginLeft: "2em",
+    "&:hover": {
+      cursor: "pointer",
+      color: "black",
+      transition: "500ms",
+    },
+  },
+  tagContent: {
+    marginRight: "0",
+  },
+  tagGrid: {
+    width: "100%",
+    display: "grid",
+    // gridTemplateRows: "repeat(auto-fill, 1fr)",
+    gridTemplateColumns: "repeat(auto-fill, minMax(4em, auto))",
+  },
   "@keyframes slideOut": {
     to: {
-      transform: "translatex(-100%)",
+      // transform: "translatex(-100%)",
+      maxWidth: "0",
+      padding: 0
     },
   },
   "@keyframes slideIn": {
     from: {
-      transform: "translatex(-100%)",
+      // transform: "translatex(-100%)",
+      maxWidth: "0",
+      padding: 0
     },
   },
   "@keyframes slideUp": {
@@ -193,6 +237,112 @@ const useStyles = createUseStyles({
       opacity: 0,
     },
   },
+  manageText: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    width: "70%",
+    margin: "0 1em ",
+  },
+   folderShowC: {
+      height: "100%",
+      width: "100%",
+      overflow: "scroll",
+      boxShadow: "inset 8px 8px 15px 0px #41b3a1",
+      background: "#85cdc9",
+      padding: "2em 2em 0 2em"
+   },
+   showHM: {
+      fontSize: 30,
+      fontWeight: "bold",
+      color: "#e27d5e",
+      borderBottom: "3px solid"
+   },
+   folderContainerH: {
+      padding: "10px 10px 10px 0",
+
+      borderBottom: "1px solid #e27d5e",
+      display: "flex",
+      flexDirection: "row",
+      fontSize: 40,
+      "&:hover": {
+         cursor: "pointer",
+         color: "#e27d5e"
+      }
+   },
+   folderName: {
+      marginLeft: "1em",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+   },
+   folderContainer: {
+      paddingLeft: 10
+   },
+   folderInfoC: {
+      background: "#e8a97c",
+      borderRadius: 5,
+      boxShadow: "inset 4px 4px 20px 0px #e27d5e",
+      padding: "1em"
+   },
+   folderDate: {
+      display: "flex",
+      flexDirection: "column",
+      fontSize: 14,
+      padding: "0 10px 10px 10px",
+      overflow: "scroll"
+   },
+   folderDocuments: {},
+   folderInfoH: {
+      width: "fit-content",
+   },
+   folderRow: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      fontSize: 20,
+      color: "#388276",
+     
+      "&:hover": {
+         cursor: "pointer"
+      }
+   },
+   arrow: {
+      animation: (options) => {
+         if(!options || !options.animate) return;
+         return options.data? 
+            "$spinDown 500ms"
+            : 
+            "$spinRight 500ms"
+      }
+   },
+   arrowDoc: {
+      animation: (options) => {
+         if(!options || !options.animateDoc) return;
+         return options.doc? 
+            "$spinDown 500ms"
+            : 
+            "$spinRight 500ms"
+      }
+   },
+   "@keyframes spinDown": {
+      from: {
+         transform: "rotate(-90deg)"
+      }
+   },
+   "@keyframes spinRight": {
+      from: {
+         transform: "rotate(90deg)"
+      }
+   },
+   "@keyframes growInfo": {
+      from: {
+         maxHeight: 0
+      },
+      to: {
+         maxHeight: "fit-content"
+      }
+   }
 });
 
 export default useStyles;

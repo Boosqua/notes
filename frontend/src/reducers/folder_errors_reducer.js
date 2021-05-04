@@ -8,10 +8,9 @@ const _nullErrors = [];
 
 const folderErrorsReducer = (state = _nullErrors, action) => {
   Object.freeze(state);
-
   switch (action.type) {
     case RECEIVE_FOLDER_ERRORS:
-      return action.errors;
+      return action.error;
     case RECEIVE_FOLDER:
     case CLEAR_FOLDER_ERRORS:
       return _nullErrors;

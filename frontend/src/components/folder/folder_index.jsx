@@ -1,15 +1,13 @@
 import React, { useState } from "react"
 import {useSelector} from "react-redux"
-import { useLocation } from "react-router"
 import Modal from "../modal/modal"
 import useStyles from "./styles"
 import {Link} from "react-router-dom"
 import FolderC from "./folder_c"
 export default function FolderIndex({collapse, animate}) {
-   const [show, setShow] = useState(true)
+   const [show, setShow] = useState(false)
    const folders = useSelector( state => Object.values(state.folder))
    const classes = useStyles({collapse, animate})
-   const location = useLocation().pathname
 
    return (
       <div className={classes.folderOU}>
@@ -19,12 +17,14 @@ export default function FolderIndex({collapse, animate}) {
                {
                   folders.map( (folder, i) => {
                      return (
-                        <div className={classes.borderColor}>
-                           <div className={classes.folderLink} key={i}>
+                        <div key={i} className={classes.borderColor}>
+                           <div className={classes.folderLink} >
                               <span style={{color: folder.color? folder.color : "green"}}>
                               <i class="fas fa-folder"></i> 
                               </span>
-                              &nbsp;&nbsp;{`${folder.name}`}
+                              <div className={classes.manageText}>
+                              {`${folder.name}`}
+                              </div>
                            </div>
                         </div>
                      ) 
@@ -42,7 +42,7 @@ export default function FolderIndex({collapse, animate}) {
                </div>
          </div>
          <Modal setShow={setShow} show={show}>
-               <FolderC/>
+               <FolderC setShow={setShow}/>
          </Modal>
       </div>
    )
