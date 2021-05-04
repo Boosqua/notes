@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Home from "./home/home"
 import { createUseStyles } from "react-jss"
 import { Switch, Route, useRouteMatch } from "react-router"
@@ -10,14 +10,18 @@ export default function UserRoutes(props) {
    let { path, url } = useRouteMatch();
    const [dataFetch, userId] = useSelector( state => [state.util.dataFetch, state.session.user.id])
    const dispatch = useDispatch()
-   if(!dataFetch){
-      fetchFolders(userId)(dispatch).then(() => dispatch(setDataFetch(true)))
-   }
+   useEffect(() => {
+      if(!dataFetch){
+         fetchFolders(userId)(dispatch).then(() => dispatch(setDataFetch(true)))
+      }
+   }, [])
    return (
+      dataFetch ?
       <Switch>
          <Route path={`${path}`} component={Home}/>
-
-      </Switch>
+      </Switch> 
+      : 
+      null
    )
 }
 

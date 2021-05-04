@@ -158,6 +158,7 @@ const useStyles = createUseStyles({
       padding: "5px 1em",
       backgroundColor: "#e27d5e",
       borderRadius: 5,
+      boxShadow: "1px 1px 4px #808080",
       "&:hover": {
          padding: "5px 2em",
          transition: "500ms",
@@ -321,7 +322,7 @@ function SignUpForm(props){
                Username
             </div>
             <div className={classes.inputSection}>
-               <input ref={inputEl}ype="text" value={name} onInput={handleChange(setName)}/>
+               <input ref={inputEl} type="text" value={name} onInput={handleChange(setName)}/>
             </div>
             {
                !Array.isArray(errors) && errors.username ?
