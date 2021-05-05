@@ -14,12 +14,12 @@ router.post("/create", (req, res) => {
   }
 });
 
-router.patch("/update/:folderId", async (req, res) => {
+router.patch("/update/:noteId", async (req, res) => {
   const { errors, isValid } = validateNoteInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const note = await Note.findById(req.params.folderId);
+  const note = await Note.findById(req.params.noteId);
   for (const key in req.body) {
     if (key === "_id") continue;
     note[key] = req.body[key];
