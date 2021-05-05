@@ -1,6 +1,7 @@
 import {
   RECEIVE_FOLDER,
-  RECEIVE_FOLDERS
+  RECEIVE_FOLDERS,
+  DELETE_FOLDER
 } from "../actions/folder_actions";
 
 export default function (state = {}, action) {
@@ -13,6 +14,9 @@ export default function (state = {}, action) {
          return folders
       case RECEIVE_FOLDER:
          newState[action.folder._id] = action.folder
+         return newState
+      case DELETE_FOLDER:
+         delete newState[action.folderId.folderId]
          return newState
       default:
          return state;

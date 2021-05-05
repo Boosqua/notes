@@ -18,9 +18,11 @@ router.patch('/update/:folderId', async (req, res) => {
    if (!isValid) {
      return res.status(400).json(errors);
    }
-
    const folder = await Folder.findById(req.params.folderId)
-   folder.name = req.body.name;
+   for( const key in req.body ){
+      if(key === '_id') continue
+      folder[key] = req.body[key]
+   }
    folder.save()
       .then( folder => res.json(folder) )
       .catch( err => console.log(err) )
@@ -43,6 +45,13 @@ router.get('/test', (req, res) => {
          res.json(doc)
      }
    );
-   
+})
+
+router.delete('/destroy/:id', ( req, res ) => {
+   console.log(req.params)
+   Folder.findByIdAndDelete(req.params.id, (err) => {
+      if(err) return console.log(err)
+      res.json({folderId: req.params.id})
+   })
 })
 module.exports = router;

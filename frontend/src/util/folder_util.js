@@ -11,3 +11,7 @@ export const createFolder = (folderData) => {
 export const updateFolder = (folderData) => {
    return axios.patch( `/api/folders/update/${folderData._id}`, folderData )
 }
+
+export const deleteFolder = (folderId) => {
+   return axios.delete( `/api/folders/destroy/${folderId}`)
+}

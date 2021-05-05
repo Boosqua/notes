@@ -31,7 +31,7 @@ const useStyles = createUseStyles({
   folderHeader: {
     gridArea: "header",
     fontSize: 20,
-    color: "grey",
+
     fontWeight: "bold",
     width: "fit-content",
     padding: 10,
@@ -182,7 +182,6 @@ const useStyles = createUseStyles({
 
     borderRadius: 5,
     boxShadow: "1px 1px 4px #808080",
-    width: "fit-content",
     background: "hsl(171deg 47% 48%)",
     boxShadow: "1px 1px 4px #808080",
     "&:hover": {
@@ -194,6 +193,7 @@ const useStyles = createUseStyles({
     background: "#c48c9d",
     padding: ".5em",
     borderRadius: ".25em",
+    maxWidth: "5em",
     width: "fit-content",
     margin: "0 .25em .75em .25em",
     display: "flex",
@@ -201,7 +201,7 @@ const useStyles = createUseStyles({
     alignItems: "center",
   },
   closeIcon: {
-     marginLeft: "2em",
+     marginLeft: "1em",
     "&:hover": {
       cursor: "pointer",
       color: "black",
@@ -209,24 +209,23 @@ const useStyles = createUseStyles({
     },
   },
   tagContent: {
-    marginRight: "0",
+      maxWidth: "3em",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
   },
   tagGrid: {
     width: "100%",
-    display: "grid",
-    // gridTemplateRows: "repeat(auto-fill, 1fr)",
-    gridTemplateColumns: "repeat(auto-fill, minMax(4em, auto))",
+    display: "flex",
   },
   "@keyframes slideOut": {
     to: {
-      // transform: "translatex(-100%)",
       maxWidth: "0",
       padding: 0
     },
   },
   "@keyframes slideIn": {
     from: {
-      // transform: "translatex(-100%)",
       maxWidth: "0",
       padding: 0
     },
@@ -241,7 +240,7 @@ const useStyles = createUseStyles({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     overflow: "hidden",
-    width: "70%",
+    width: "10em",
     margin: "0 1em ",
   },
    folderShowC: {
@@ -286,11 +285,13 @@ const useStyles = createUseStyles({
       padding: "1em"
    },
    folderDate: {
-      display: "flex",
-      flexDirection: "column",
+      display: (options) => options.data ? "block" : "none",
       fontSize: 14,
       padding: "0 10px 10px 10px",
-      overflow: "scroll"
+      overflow: "hidden",
+      maxHeight: '100%',
+      animation: '$moveDown 1s',
+      transition: "height 1s"
    },
    folderDocuments: {},
    folderInfoH: {
@@ -316,6 +317,10 @@ const useStyles = createUseStyles({
             "$spinRight 500ms"
       }
    },
+   menuAni: {
+      // animation: "$moveDown 1s",
+      // transition: "height 1s"
+   },
    arrowDoc: {
       animation: (options) => {
          if(!options || !options.animateDoc) return;
@@ -335,13 +340,29 @@ const useStyles = createUseStyles({
          transform: "rotate(90deg)"
       }
    },
-   "@keyframes growInfo": {
+   "@keyframes moveDown": {
       from: {
-         maxHeight: 0
+         height: 0,
+         padding: 0
       },
       to: {
-         maxHeight: "fit-content"
+         height: '5em'
       }
+   },
+   buttonMargin: {
+      margin: "1em"
+   },
+   deleteC: {
+      padding: 20,
+      backgroundColor: 'white',
+      color: 'black'
+   },
+   deleteHeader: {
+      fontSize: 30,
+      fontWeight: "bold"
+   },
+   deleteWarning: {
+      margin: '10px 10px 10px 10px'
    }
 });
 

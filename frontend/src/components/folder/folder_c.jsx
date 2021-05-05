@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import useStyles from "./styles"
-import { createFolder} from "../../actions/folder_actions"
+import { createFolder, updateFolder } from "../../actions/folder_actions"
 import {useDispatch, useSelector} from "react-redux"
 
-export default function FolderC({setShow}){
-   const classes = useStyles()
+export default function FolderC({setShow, edit=false, _id="", oldName = "", oldAllTags=[], oldColor="white",}){
+   const classes = useStyles({})
    const userId = useSelector( state => state.session.user.id)
    const errors = useSelector( state => state.errors.folders)
    const dispatch = useDispatch()
-   const [name, setName] = useState("")
+   const [name, setName] = useState(oldName)
    const [tag, setTag] = useState("")
    const [submitting, setSubmitting] = useState(false)
-   const [allTags, setAllTags] = useState([])
-   const [color, setColor] = useState("white")
+   const [allTags, setAllTags] = useState(oldAllTags)
+   const [color, setColor] = useState(oldColor)
    const handleKey = (e) => {
       if(e.key === "Enter") handleSubmit()
    }
@@ -36,10 +36,17 @@ export default function FolderC({setShow}){
    const handleSubmit = () => {
       setSubmitting(true)
       const folder = { name: name, owner: userId, tags: allTags, color: color}
+      if(edit){
+         folder['_id'] = _id
+      }
       setAllTags([])
       setName("")
       setTag("")
-      createFolder(folder)(dispatch).then(() => setSubmitting(false))
+      const cb = edit ? updateFolder : createFolder
+      cb(folder)(dispatch).then(() => {
+         setSubmitting(false)
+         setShow(false)
+      })
    }
    return (
       <div className={classes.folderCC}>
@@ -52,7 +59,7 @@ export default function FolderC({setShow}){
          </div>
          
          <div className={classes.formCH}>
-            Create Your New Folder
+            {`${edit ? "Edit Your Folder" : "Create Your New Folder"}`}
          </div>
          <div className={classes.formCIH}>
             Folder Name:
@@ -139,15 +146,9 @@ export default function FolderC({setShow}){
             <i class="fas fa-folder"></i>
          </span>
          </span>
-         {
-            submitting ? 
-            <div>{`Creating ${name}`}</div>
-            :
-            null
-         }
          <div className={classes.formButtonC} onClick={handleSubmit}>
                       <div className={classes.formButton} style={{background: "hsl(171deg 47% 48%)", marginTop: "10px"}}>
-                        Create New Folder
+                        {`${edit ? 'Update Folder' : 'Create New Folder'}`}
                      </div>
                    </div>
       </div>
