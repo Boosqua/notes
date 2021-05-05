@@ -8,7 +8,7 @@ const useStyles = createUseStyles({
     height: "fit-content",
     //  boxShadow: "3px 5px 5px 0 rgba(8, 159, 154, .25)",
     background: "rgb(77 217 195)",
-
+   alignItems: "center",
     zIndex: 0,
     padding: 10,
   },
@@ -47,7 +47,7 @@ const useStyles = createUseStyles({
   },
   homeHeader: {
     gridArea: "header",
-    fontSize: 30,
+    fontSize: 50,
     fontWeight: "bold",
   },
   rightFlex: {
@@ -56,6 +56,7 @@ const useStyles = createUseStyles({
     height: "100%",
     display: "flex",
     flexDirection: "row-reverse",
+    alignItems: "center"
   },
   infoIcon: {
     margin: "0",

@@ -33,9 +33,10 @@ const useStyles = createUseStyles({
     fontSize: 20,
 
     fontWeight: "bold",
-    width: "fit-content",
-    padding: 10,
-    margin: "0 0 10px 0",
+    width: "100%",
+    padding: "10px 10px 10px 0px",
+    marginLeft: 10,
+   //  borderBottom: '1px solid '
   },
   folderHC: {
     height: "fit-content",

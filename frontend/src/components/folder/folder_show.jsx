@@ -10,7 +10,13 @@ function parseDate(data) {
 }
 
 export default function FolderShow({header}){
-   const folders = useSelector(state => Object.values(state.folder))
+   const folders = useSelector(state => Object.values(state.folder).sort( (a,b) => {
+      if( a.updatedAt > b.updatedAt ){
+         return -1
+      } else {
+         return 1
+      }
+   }))
    const [modal, setModal] = useState(false);
    const [edit, setEdit] = useState({ oldName: "", oldAllTags: [], oldColor: "white", _id: null})
    const [remove, setRemove] = useState({show: false, folder: null})
@@ -151,6 +157,7 @@ export default function FolderShow({header}){
             <FolderC 
             edit={true}
             setShow={() => {
+            setShown(null)
             setModal(false)
             setEdit({ name: "", allTags: [], color: "white", _id: null})
          }} 

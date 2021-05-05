@@ -15,6 +15,7 @@ const passport = require('passport');
 
 const users = require("./routes/api/users");
 const folders = require("./routes/api/folders")
+const notes = require("./routes/api/notes")
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
@@ -30,5 +31,6 @@ app.use(bodyParser.json());
 
 app.use("/api/users", users);
 app.use("/api/folders", folders)
+app.use("/api/notes", notes)
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));

@@ -6,7 +6,13 @@ import {Link} from "react-router-dom"
 import FolderC from "./folder_c"
 export default function FolderIndex({collapse, animate}) {
    const [show, setShow] = useState(false)
-   const folders = useSelector( state => Object.values(state.folder))
+   const folders = useSelector( state => Object.values(state.folder).sort( (a,b) => {
+      if( a.updatedAt > b.updatedAt ){
+         return -1
+      } else {
+         return 1
+      }
+   }))
    const classes = useStyles({collapse, animate})
 
    return (
@@ -17,7 +23,7 @@ export default function FolderIndex({collapse, animate}) {
                {
                   folders.map( (folder, i) => {
                      return (
-                        <div key={i} className={classes.borderColor}>
+                        <Link to={`/@me/folder/${folder._id}`}key={i} className={classes.borderColor}>
                            <div className={classes.folderLink} >
                               <span style={{color: folder.color? folder.color : "green"}}>
                               <i class="fas fa-folder"></i> 
@@ -26,7 +32,7 @@ export default function FolderIndex({collapse, animate}) {
                               {`${folder.name}`}
                               </div>
                            </div>
-                        </div>
+                        </Link>
                      ) 
                   })
                }

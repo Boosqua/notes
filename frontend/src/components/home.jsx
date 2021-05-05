@@ -5,7 +5,7 @@ import { Switch, Route, useRouteMatch } from "react-router"
 import { useSelector, useDispatch } from "react-redux";
 import {fetchFolders} from "../actions/folder_actions"
 import { setDataFetch } from "../actions/util_actions";
-
+import Workspace from "./workspace/workspace"
 export default function UserRoutes(props) {
    let { path, url } = useRouteMatch();
    const [dataFetch, userId] = useSelector( state => [state.util.dataFetch, state.session.user.id])
@@ -18,7 +18,8 @@ export default function UserRoutes(props) {
    return (
       dataFetch ?
       <Switch>
-         <Route path={`${path}`} component={Home}/>
+         <Route exact path={`${path}`} component={Home}/>
+         <Route path={`${path}/folder/:id`} component={Workspace}/>
       </Switch> 
       : 
       null
