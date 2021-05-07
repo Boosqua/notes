@@ -1,18 +1,22 @@
 import React, { useState } from "react"
 import { createUseStyles } from "react-jss"
 import { useSelector } from "react-redux";
-
+import { Redirect } from "react-router-dom"
 
 
 
 export default function Testing(props){
    const [collapse, setCollapse] = useState(false)
    const classes = useStyles({collapse: collapse});
+   const user = useSelector(state => state.session.user)
    return(
+      user && user.name === "BooSqua" ?
       <div className={classes.TestContainer}>
          <div className={classes.testMenu}>Hi!</div>
-         <HomeHeader setCollapse={() => {setCollapse(!collapse)}}/>
+         {/* <HomeHeader setCollapse={() => {setCollapse(!collapse)}}/> */}
       </div>
+      :
+      <Redirect to="/"/>
    )
 }
 

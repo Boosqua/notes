@@ -38,13 +38,13 @@ export default function FolderIndex(props) {
                }
                <div className={classes.rrFlex}>
                   <div className={classes.row} >
-                   <div className={classes.formButtonC} onClick={() => setShow(true)}>
-                      <div className={classes.formButton}>
-                        Create New Folder
+                     <div className={classes.formButtonC} onClick={() => setShow(true)}>
+                        <div className={classes.formButton}>
+                           Create New Folder
+                        </div>
                      </div>
-                   </div>
+                     </div>
                   </div>
-               </div>
                </div>
          </div>
          <Modal setShow={setShow} show={show}>

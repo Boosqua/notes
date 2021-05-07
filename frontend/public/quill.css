@@ -18,18 +18,23 @@ li {
    background-color: rgba(0,0,0,.75);
    font-size: 14px;
    font-family: 'Space Mono';
-   width: 25%;
+   width: 100%;
    max-width: inherit;
    padding: 10px;
 }
-#toolbar {
-   display: flex;
-   flex-direction: column;
-   /* border: 1px solid rgb(8 159 154 / 71%); */
-}
+
 
 button {
    display: flex;
    align-items: center;
    justify-content: center;
+   padding: 0 5px 0 5px
+}
+
+.quill {
+   height: 95%
+}
+
+.ql-hidden {
+   display: none;
 }

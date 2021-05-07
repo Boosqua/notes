@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useStyles from "./styles"
 import { createFolder, updateFolder } from "../../actions/folder_actions"
 import {useDispatch, useSelector} from "react-redux"
-
+import SlideMenu from "../modal/slide_menu"
 export default function FolderC({setShow, edit=false, _id="", oldName = "", oldAllTags=[], oldColor="white",}){
    const classes = useStyles({})
    const userId = useSelector( state => state.session.user.id)
@@ -49,7 +49,7 @@ export default function FolderC({setShow, edit=false, _id="", oldName = "", oldA
       })
    }
    return (
-      <div className={classes.folderCC}>
+      <SlideMenu>
          <div className={classes.rrFlex2}>
             <div className={classes.closeIcon} onClick={()=> {
                setShow(false)
@@ -151,6 +151,6 @@ export default function FolderC({setShow, edit=false, _id="", oldName = "", oldA
                         {`${edit ? 'Update Folder' : 'Create New Folder'}`}
                      </div>
                    </div>
-      </div>
+      </SlideMenu>
    )
 }

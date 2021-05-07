@@ -81,6 +81,7 @@ const useStyles = createUseStyles({
      background: "#42b4a2",
      borderRadius: "10px",
      width: "fit-content",
+     fontSize: 20,
      boxShadow: "1px 1px 4px #808080",
       marginLeft: 5,
      "&:hover": {

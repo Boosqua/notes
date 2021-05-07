@@ -8,8 +8,7 @@ export default function CustomToolbar({children}){
 
    return(
    <div id="toolbar" className={classes.toolbar}>
-      {children}
-      <div className={classes.tbDiv}></div>
+
       <button className="ql-customHeader"> 
          <div className={classes.fontButton}>
             <div className={classes.header}>
@@ -39,7 +38,6 @@ export default function CustomToolbar({children}){
          </div>
       </div>
     </button>
-    <div className={classes.tbDiv}></div>
    <button className="ql-customStrike"> 
       <div className={classes.fontButton}>
          <div className={classes.strike}>
@@ -47,6 +45,7 @@ export default function CustomToolbar({children}){
          </div>
       </div>
    </button>
+    <div className={classes.tbDiv}></div>
     <button className="ql-customCB"> 
       <div className={classes.fontButton}>
          <div className={classes.cb}>
@@ -153,16 +152,21 @@ export const formats = [
 // styling
 const useStyles = createUseStyles({
    toolbar: {
-      width: "fit-content",
+      display: "flex",
+      flexDirection: "row",
+      width: "100%",
+      padding: "12px 15px",
+      background: "#85cdc9",
+      border: "1px solid rgba(0,0,0,.1) "
    },
    bold: {
       textTransform: "uppercase",
       fontWeight: 800
    },
    tbDiv: {
-      borderBottom: "2px solid rgba(0,0,0,.1) ",
-      margin: "5px 0",
-      width: '100%',
+      borderLeft: "2px solid rgba(0,0,0,.1) ",
+      margin: "0 5px",
+      height: '100%',
    },
    italic: {
       textTransform: "uppercase",
