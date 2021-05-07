@@ -50,13 +50,7 @@ export default function FolderC({setShow, edit=false, _id="", oldName = "", oldA
    }
    return (
       <SlideMenu>
-         <div className={classes.rrFlex2}>
-            <div className={classes.closeIcon} onClick={()=> {
-               setShow(false)
-            }}>
-               <i class="fas fa-times"></i>
-            </div>
-         </div>
+
          
          <div className={classes.formCH}>
             {`${edit ? "Edit Your Folder" : "Create Your New Folder"}`}

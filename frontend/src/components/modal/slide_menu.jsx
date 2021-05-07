@@ -15,7 +15,7 @@ const useStyles = createUseStyles({
    slideMenu: {
       height: "fit-content",
       animation: "$slideUp 1s",
-      padding: "5px 30px 30px 30px",
+      padding: 30,
       background: "#e27d5e",
       border: "1px solid #e8a97c",
       borderRadius: 10,

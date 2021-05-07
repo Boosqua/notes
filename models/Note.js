@@ -11,13 +11,11 @@ const NoteSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "users",
       index: true
-      //  required: true
     },
     folder: {
       type: Schema.Types.ObjectId,
       ref: "folder",
       index: true
-      //  required: true
     },
     body: {
       type: String

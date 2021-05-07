@@ -104,6 +104,8 @@ const useStyles = createUseStyles({
   formCH: {
     fontSize: 25,
     borderBottom: "1px solid white",
+    display: "flex",
+    justifyContent: "center"
   },
   formCIH: {
     fontSize: 20,

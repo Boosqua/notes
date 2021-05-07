@@ -7,6 +7,8 @@ import Header from "../home/home_header"
 import Editor from "../text_editor/editor"
 import Sidebar from "../modal/sidebar"
 import Button from "../reusable/button"
+import NoteCrud from "../notes/note_crud"
+
 
 export default function Workspace(){
    const classes = useStyles({})
@@ -114,6 +116,7 @@ function WSSidebar(props){
    const {params} = useRouteMatch();
    const folder = useSelector(state => state.folder[params.id])
    const user = useSelector(state => state.session.user)
+   const [show, setShow] = useState(false)
    const classes = useStyles({})
    return (
       <div className={classes.wSSidebar}>
@@ -121,7 +124,8 @@ function WSSidebar(props){
             {user.name}
          </div>
          <FolderItem folder={folder} open={true} add={true}/>
-         <Button handleClick={() => console.log("clicked")} expand={true}>Create New Note</Button>
+         <Button handleClick={() => setShow(true)} expand={true}>Create New Note</Button>
+         <NoteCrud show={show} setShow={() => setShow(false)} folder={folder}/>
       </div>
    )
 }

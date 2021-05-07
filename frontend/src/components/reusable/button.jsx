@@ -1,26 +1,20 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
 
-export default function Button({expand=false, color, handleClick, children}){
+export default function Button({expand=false, color, handleClick, children, center=true}){
    const classes = useStyles({expand, color})
    return(
-         <div className={classes.row} >
-            <div className={classes.formButtonC} onClick={handleClick}>
+
+            <div className={ center ? classes.formButtonC : ""} onClick={handleClick}>
                <div className={classes.formButton}>
                   {children}
                </div>
             </div>
-         </div>
+
    )
 }
 
 const useStyles = createUseStyles({
-   row: {
-      display: "flex",
-      flexDirection: "row",
-      width: "100%",
-      justifyContent: "center",
-   },
    formButton: {
       width: "fit-content",
       padding: "5px 1em",
