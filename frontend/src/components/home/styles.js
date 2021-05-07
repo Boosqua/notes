@@ -4,11 +4,10 @@ const useStyles = createUseStyles({
   homeHC: {
     display: "grid",
     gridTemplateColumns: "[leftH] 10fr [header] auto [rightH] 10fr",
-    width: "100vw",
+    width: "100%",
     height: "fit-content",
-    //  boxShadow: "3px 5px 5px 0 rgba(8, 159, 154, .25)",
-    background: "rgb(77 217 195)",
-   alignItems: "center",
+    background: "#85cdc9",
+    alignItems: "center",
     zIndex: 0,
     padding: 10,
   },
@@ -16,16 +15,14 @@ const useStyles = createUseStyles({
     margin: "0 .1em",
     padding: ".2em .5em",
     color: (options) => (!options.collapse ? "white" : "#e27d5e"),
-    //  background: (options) => (!options.collapse ? "" : "#e27d5e"),
     borderRadius: ".5em",
     height: "fit-content",
     width: "fit-content",
     gridArea: "leftH",
-    fontSize: 20,
+    fontSize: 25,
     "&:hover": {
       cursor: "pointer",
       color: "#e27d5e",
-      // background: "hsl(171deg 47% 48%)",
       transition: " 500ms",
       animationTimingFunction: "ease-in-out",
     },
@@ -33,7 +30,8 @@ const useStyles = createUseStyles({
   folderMenu: {
     display: "flex",
     height: "100vh",
-    flexDirection: "row"
+    flexDirection: "column",
+      width: "100%"
   },
   div: {
     width: 0,
@@ -42,8 +40,8 @@ const useStyles = createUseStyles({
   },
   homeContainer: {
     display: "flex",
-    flexDirection: "column",
-    height: "100vh",
+    flexDirection: "row",
+    width: "100vw",
   },
   homeHeader: {
     gridArea: "header",
@@ -56,7 +54,7 @@ const useStyles = createUseStyles({
     height: "100%",
     display: "flex",
     flexDirection: "row-reverse",
-    alignItems: "center"
+    alignItems: "center",
   },
   infoIcon: {
     margin: "0",
@@ -64,7 +62,7 @@ const useStyles = createUseStyles({
     borderRadius: ".5em",
     height: "fit-content",
     width: "fit-content",
-    fontSize: 20,
+    fontSize: 25,
     "&:hover": {
       cursor: "pointer",
       // background: "#e27d5e",

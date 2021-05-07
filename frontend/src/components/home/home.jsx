@@ -15,6 +15,8 @@ export default function Testing(props){
       `${username}'s Workspaces`
    return(
       <div className={classes.homeContainer}>
+         <FolderIndex animate={animate} collapse={collapse}/>
+         <div className={classes.folderMenu}>
          <HomeHeader header={welcomeMessage} 
          collapse={collapse}
          setCollapse={() => {
@@ -25,12 +27,12 @@ export default function Testing(props){
                setCollapse(!collapse)
                setAnimate(false)
                setStall(false)
-            }, 750)
+            }, 300)
          }}/>
-         <div className={classes.folderMenu}>
-            <FolderIndex animate={animate} collapse={collapse}/>
+            
             <FolderShow header={welcomeMessage} />
             </div>
       </div>
    )
 }
+

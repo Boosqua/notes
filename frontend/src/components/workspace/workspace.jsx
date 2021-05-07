@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import { createUseStyles } from 'react-jss';
 import Header from "../home/home_header"
+import Editor from "../text_editor/editor"
+import CustomToolbar from "../text_editor/custom_toolbar"
 export default function Workspace(){
    const classes = useStyles({})
    const [show, setShow] = useState(false)
    const [collapse, setCollapse] = useState(false)
    const [animate, setAnimate] = useState(false)
    const [stall, setStall] = useState(false)
+   
    return (
       <div className={classes.homeContainer}>
          <Header  
@@ -21,6 +24,8 @@ export default function Workspace(){
                setStall(false)
             }, 750)
          }}/>
+         <CustomToolbar></CustomToolbar>
+         <Editor/>
       </div>
    )
 }

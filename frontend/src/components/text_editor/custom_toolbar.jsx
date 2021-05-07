@@ -7,7 +7,7 @@ export default function CustomToolbar({children}){
    const keyRef = useRef(null)
 
    return(
-   <div id="toolbar">
+   <div id="toolbar" className={classes.toolbar}>
       {children}
       <div className={classes.tbDiv}></div>
       <button className="ql-customHeader"> 
@@ -152,6 +152,9 @@ export const formats = [
 
 // styling
 const useStyles = createUseStyles({
+   toolbar: {
+      width: "fit-content",
+   },
    bold: {
       textTransform: "uppercase",
       fontWeight: 800
