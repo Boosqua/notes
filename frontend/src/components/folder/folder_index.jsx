@@ -4,7 +4,7 @@ import Modal from "../modal/modal"
 import useStyles from "./styles"
 import {Link} from "react-router-dom"
 import FolderC from "./folder_c"
-export default function FolderIndex({collapse, animate}) {
+export default function FolderIndex(props) {
    const [show, setShow] = useState(false)
    const folders = useSelector( state => Object.values(state.folder).sort( (a,b) => {
       if( a.updatedAt > b.updatedAt ){
@@ -13,7 +13,7 @@ export default function FolderIndex({collapse, animate}) {
          return 1
       }
    }))
-   const classes = useStyles({collapse, animate})
+   const classes = useStyles({})
 
    return (
       <div className={classes.folderOU}>

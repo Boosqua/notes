@@ -43,17 +43,7 @@ const useStyles = createUseStyles({
     padding: "10px 40px 10px 40px",
   },
   folderOU: {
-    marginLeft: (options) => {
-      return options && options.collapse && !options.animate ? -300 : 0;
-    },
-    animation: (options) => {
-      if (options && !options.animate) {
-        return "";
-      }
-      return options && options.collapse ? "$slideIn 300ms" : "$slideOut 300ms";
-    },
     overflow: "hidden",
-    animationTimingFunction: "linear",
     padding: 10,
     maxWidth: "300px",
     height: "100%",

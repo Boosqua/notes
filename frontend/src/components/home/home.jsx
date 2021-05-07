@@ -4,6 +4,8 @@ import useStyles from "./styles"
 import { useSelector } from "react-redux";
 import FolderIndex from "../folder/folder_index"
 import FolderShow from "../folder/folder_show"
+import Sidebar from "../modal/sidebar"
+
 export default function Testing(props){
    const [collapse, setCollapse] = useState(false)
    const [animate, setAnimate] = useState(false)
@@ -15,7 +17,9 @@ export default function Testing(props){
       `${username}'s Workspaces`
    return(
       <div className={classes.homeContainer}>
-         <FolderIndex animate={animate} collapse={collapse}/>
+         <Sidebar animate={animate} collapse={collapse}>
+            <FolderIndex animate={animate} collapse={collapse}/>
+         </Sidebar>
          <div className={classes.folderMenu}>
          <HomeHeader header={welcomeMessage} 
          collapse={collapse}
