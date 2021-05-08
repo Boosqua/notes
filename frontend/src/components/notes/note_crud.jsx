@@ -6,24 +6,31 @@ import Modal from "../modal/modal"
 import SlideMenu from "../modal/slide_menu"
 import Button from "../reusable/button"
 import Tag from "../reusable/tag"
-import { createNote } from "../../actions/note_actions"
+import { createNote, updateNote } from "../../actions/note_actions"
 
 
-export default function NoteCrud({show, setShow, folder, edit=false, note={}}){
+export default function NoteCrud({show, setShow, folder={}, edit=false, note={name: "", color: "white", tags: []} }){
    const classes = useStyles({})
    const dispatch = useDispatch()
    const user = useSelector( state => state.session.user)
-   const [name, setName] = useState("")
+   const [name, setName] = useState( note.name)
    const [tag, setTag] = useState("")
-   const [color, setColor] = useState("white")
-   const [allTags, setAllTags] = useState([])
-
+   const [color, setColor] = useState(note.color)
+   const [allTags, setAllTags] = useState(note.tags)
    return(
-
-         <Modal show={show} setShow={setShow}>
+         <Modal show={show} setShow={() => {
+               setName(note.name)
+               setAllTags(note.tags)
+               setColor(note.color)
+               setShow()
+               }}>
             <SlideMenu>
                <div className={classes.header}>
-                  {`Add New Note to ${folder.name}`}
+                 { edit ? 
+                     <div>{`Edit ${note.name}`}</div>
+                     :
+                     <div>{`Add Note to ${folder.name}`}</div>
+                 }
                </div>
                <div className={classes.section}>
                   Note Title:
@@ -63,6 +70,7 @@ export default function NoteCrud({show, setShow, folder, edit=false, note={}}){
                      center={false} 
                      color="rgb(65 180 163)" 
                      handleClick={ () => {
+                        if( tag.length <= 2 ) return
                         setAllTags([...allTags, tag])
                         setTag("")
                      }}>
@@ -100,22 +108,26 @@ export default function NoteCrud({show, setShow, folder, edit=false, note={}}){
                      expand={true}
                      color="rgb(65 180 163)" 
                      handleClick={ () => {
-                        const note = {
+                        const newNote = {
                            name,
                            tags: allTags,
                            color,
-                           owner: user.id,
-                           folder: folder._id
+                           owner: edit ? note.owner : user.id,
+                           folder: edit? note.folder : folder._id
                         }
-                        createNote(note)(dispatch)
-                        setName("")
-                        setTag("")
-                        setColor("white")
-                        setAllTags([])
+                        edit ? updateNote({...newNote, _id: note._id})(dispatch) : createNote(newNote)(dispatch)
                         setShow()
+                        setName(note.name)
+                        setAllTags(note.tags)
+                        setColor(note.color)
                      }}
                      >
-                  Create Note
+                  {
+                     edit ? 
+                     <> Update Note</>
+                     : 
+                     <> Create Note </>
+                  }
                </Button>
             </SlideMenu>
          </Modal>
@@ -123,7 +135,6 @@ export default function NoteCrud({show, setShow, folder, edit=false, note={}}){
 }
 function DocIcon({color}){
    const classes = useStyles({color})
-
    return (
       <div className={classes.docIcon}>
          <i class="fas fa-file-alt"></i>
@@ -132,7 +143,9 @@ function DocIcon({color}){
 }
 const useStyles = createUseStyles({
    header: {
-      fontSize: 25
+      fontSize: "calc(1.75vw + 1vmin)",
+      width: "100%",
+      textAlign: "center"
    },
    formInput: {
       fontSize: 20,

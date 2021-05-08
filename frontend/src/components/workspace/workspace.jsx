@@ -1,16 +1,31 @@
 import React, {useState} from 'react';
-import { createUseStyles } from 'react-jss';
 import { useRouteMatch } from "react-router"
 import { useSelector } from 'react-redux';
 
+
+import useStyles from "./styles"
+import WSSidebar from "./sidebar"
+
 import Header from "../home/home_header"
-import Editor from "../text_editor/editor"
 import Sidebar from "../modal/sidebar"
 import Button from "../reusable/button"
 import NoteCrud from "../notes/note_crud"
-
+import NoteData from "../notes/note_data"
 
 export default function Workspace(){
+   const {params} = useRouteMatch();
+   const folder = useSelector(state => state.folder[params.id])
+   const notes = useSelector(state =>  state.note[params.id] ? 
+      state.note[params.id].sort( (a,b) => {
+         if( a.updatedAt > b.updatedAt ){
+            return -1
+         } else {
+            return 1
+         }
+      })
+      : 
+      []
+   )
    const classes = useStyles({})
    const [collapse, setCollapse] = useState(false)
    const [animate, setAnimate] = useState(false)
@@ -19,7 +34,7 @@ export default function Workspace(){
    return (
       <div className={classes.rowFlex}>
       <Sidebar animate={animate} collapse={collapse}>
-         <WSSidebar/>
+         <WSSidebar folder={folder} notes={notes}/>
       </Sidebar>
       <div className={classes.columnFlex}>
          <Header  
@@ -34,118 +49,48 @@ export default function Workspace(){
                setStall(false)
             }, 300)
          }}/>
-         <div className={classes.rowFlexInner}>
-         <Editor/>
-         </div>
-         </div>
-      </div>
-   )
-}
+         <div className={classes.columnFlexInner}>
+            <div className={classes.noteDataHeader}>
+               <span className={classes.itemIcon }style={{ color: folder.color }}>
+                  <i class="fas fa-folder-open"></i>
+               </span>
+               <span>
+                  {folder.name}
+               </span>
+            </div>
 
-  const useStyles = createUseStyles({
-   columnFlex: {
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      width: "100%"
-   },
-   rowFlex: {
-      display: "flex",
-      flexDirection: "row",
-      width: "100vw",
-      height: "100%"
-   },
-   rowFlexInner: {
-      display: "flex",
-      flexDirection: "row",
-      width: "100%",
-      height: "100%"
-   },
-   wSSidebar: {
-      width: 300,
-      padding: 10,
-      height: "100vh",
-      overflowY: "scroll",
-      border: "1px solid rgba(0,0,0,.1) "
-   },
-   wSHeader: {
-      fontSize: 40,
-      fontWeight: "bold",
-      display: 'flex',
-      flexDirection: "row",
-      justifyContent: 'center',
-      marginBottom: 20
-   },
-   folderItem: {
-      display: "flex",
-      flexDirection: "row",
-      fontSize: 22,
-      padding: ".5em",
-      margin: "0 .5em",
-      borderRadius: 10,
-      "&:hover": {
-         background: options => options.hover ? "#e37d5e" : "inherit",
-         cursor: options => options.hover ? "pointer" : "inherit"
-      }
-   },
-   folderItemIcon: {
-      marginRight: ".5em"
-   },
-   folderItemTitle: {
-      width: "20em",
-      overflow: "hidden",
-      textOverflow: 'ellipsis',
-      whiteSpace: "nowrap",
-   },
-   folderItemAdd: {
-      display: 'flex',
-      flexDirection: 'row-reverse',
-      width: "100%",
-      alignItems: 'center'
-   },
-   folderItemAddIcon: {
-      marginRight: ".5em",
-      "&:hover": {
-         color: '#e37d5e',
-         cursor: 'pointer'
-      }
-   }
-})
-
-function WSSidebar(props){
-   const {params} = useRouteMatch();
-   const folder = useSelector(state => state.folder[params.id])
-   const user = useSelector(state => state.session.user)
-   const [show, setShow] = useState(false)
-   const classes = useStyles({})
-   return (
-      <div className={classes.wSSidebar}>
-         <div className={classes.wSHeader}>
-            {user.name}
-         </div>
-         <FolderItem folder={folder} open={true} add={true}/>
-         <Button handleClick={() => setShow(true)} expand={true}>Create New Note</Button>
-         <NoteCrud show={show} setShow={() => setShow(false)} folder={folder}/>
-      </div>
-   )
-}
-
-function FolderItem({folder, open=false, hover = false}){
-   const {color, name} = folder
-   const classes = useStyles({hover})
-   return (
-      <div className={classes.folderItem}>
-         <div className={classes.folderItemIcon }style={{ color: color }}>
             {
-               open ? 
-               <i class="fas fa-folder-open"></i>
-               :
-               <i class="fas fa-folder"></i>
+               notes.length > 0 ? 
+                  <div className={classes.noteDataColumn}>
+                    { notes.map( (note, i) => <NoteData note={note} key={note._id}/>  ) }
+                  </div>
+                  : 
+                  <EmptyMessage folder={folder}/>
             }
          </div>
-         <div className={classes.folderItemTitle}>
-            {name}
          </div>
+      </div>
+   )
+}
+
+
+
+
+
+
+
+
+function EmptyMessage({folder}) {
+   const classes = useStyles({})
+   const [show, setShow] = useState(false)
+
+   return (
+      <div className={classes.emptyMessage}>
+         You haven't created any notes for this folder yet!
+         <div className={classes.emptyMessageButton}>
+            <Button center={false} handleClick={() => setShow(true)}>Create First Note!</Button>
+         </div>
+         <NoteCrud show={show} setShow={() => setShow(false)} folder={folder}/>
       </div>
    )
 }

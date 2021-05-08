@@ -40,9 +40,11 @@ router.get("/index/:ownerId", (req, res) => {
 });
 
 router.delete("/destroy/:id", (req, res) => {
+   const note = Note.findById(req.params.id)
+   const result = {_id: note._id, folder: note.folder}
   Note.findByIdAndDelete(req.params.id, (err) => {
     if (err) return console.log(err);
-    res.json({ noteId: req.params.id });
+    res.json( result );
   });
 });
 module.exports = router;

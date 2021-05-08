@@ -19,6 +19,8 @@ const useStyles = createUseStyles({
       background: "#e27d5e",
       border: "1px solid #e8a97c",
       borderRadius: 10,
+      width: 290,
+      maxWidth: 290
   },
     "@keyframes slideUp": {
     from: {

@@ -115,7 +115,6 @@ const useStyles = createUseStyles({
   },
   formCI: {
     fontSize: 20,
-    width: "95%",
     borderRadius: 5,
     color: "white",
     padding: 5,
@@ -172,9 +171,7 @@ const useStyles = createUseStyles({
   tagButton: {
     width: "fit-content",
     padding: "5px 1em",
-
     borderRadius: 5,
-    boxShadow: "1px 1px 4px #808080",
     background: "hsl(171deg 47% 48%)",
     boxShadow: "1px 1px 4px #808080",
     "&:hover": {

@@ -10,7 +10,7 @@ export default function FolderC({setShow, edit=false, _id="", oldName = "", oldA
    const dispatch = useDispatch()
    const [name, setName] = useState(oldName)
    const [tag, setTag] = useState("")
-   const [submitting, setSubmitting] = useState(false)
+
    const [allTags, setAllTags] = useState(oldAllTags)
    const [color, setColor] = useState(oldColor)
    const handleKey = (e) => {
@@ -34,7 +34,6 @@ export default function FolderC({setShow, edit=false, _id="", oldName = "", oldA
       }
    }
    const handleSubmit = () => {
-      setSubmitting(true)
       const folder = { name: name, owner: userId, tags: allTags, color: color}
       if(edit){
          folder['_id'] = _id
@@ -44,7 +43,7 @@ export default function FolderC({setShow, edit=false, _id="", oldName = "", oldA
       setTag("")
       const cb = edit ? updateFolder : createFolder
       cb(folder)(dispatch).then(() => {
-         setSubmitting(false)
+
          setShow(false)
       })
    }

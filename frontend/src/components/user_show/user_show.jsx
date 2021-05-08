@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss"
 import { useDispatch, useSelector } from "react-redux"
 import {logout} from "../../actions/session_actions"
 
-export default function({setShow, show}) {
+export default function UserShow({setShow, show}) {
    const classes = useStyles({})
    const dispatch = useDispatch()
    const user = useSelector( state => state.session.user)

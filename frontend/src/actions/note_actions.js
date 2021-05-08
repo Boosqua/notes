@@ -14,9 +14,9 @@ export const receiveNote = (note) => ({
   type: RECEIVE_NOTE,
   note,
 });
-export const removeNote = (noteId) => ({
+export const removeNote = (note) => ({
   type: DELETE_NOTE,
-  noteId,
+  note,
 });
 export const receiveNoteErrors = (error) => ({
   type: RECEIVE_NOTE_ERRORS,
@@ -38,7 +38,7 @@ export const createNote = (folderData) => (dispatch) =>
   APIUtil.createNote(folderData)
     .then((res) => dispatch(receiveNote(res.data)))
     .catch((err) => dispatch(receiveNoteErrors(err.response.data)));
-export const deleteNote = (folderId) => (dispatch) =>
+export const deleteNote = (folderId, note) => (dispatch) =>
   APIUtil.deleteNote(folderId)
-    .then((res) => dispatch(removeNote(res.data)))
-    .catch((err) => dispatch(receiveNoteErrors(err.response.data)));
+    .then((res) => dispatch(removeNote(note)))
+    .catch((err) => dispatch(receiveNoteErrors(err)));
