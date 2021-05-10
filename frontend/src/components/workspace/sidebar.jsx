@@ -11,7 +11,7 @@ export default function Sidebar({folder, notes}){
    const user = useSelector(state => state.session.user)
    const [show, setShow] = useState(false)
    const [collapse, setCollapse] = useState(false)
-   const classes = useStyles({})
+   const classes = useStyles({collapse})
    return (
       <div className={classes.wSSidebar}>
          <div className={classes.wSHeader}>

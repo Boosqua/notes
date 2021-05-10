@@ -1,11 +1,13 @@
 import React, {  useState } from "react";
 import { createUseStyles } from "react-jss";
 import { useDispatch } from "react-redux"
+import {Link} from "react-router-dom";
 
-import parseDate from "../../util/date_util";
 import Tag from "../reusable/tag";
 import Button from "../reusable/button"
 import NoteCrud from "./note_crud"
+
+import parseDate from "../../util/date_util";
 import { deleteNote } from "../../actions/note_actions"
 
 export default function NoteData({note}){
@@ -82,7 +84,11 @@ export default function NoteData({note}){
                      Edit Note
                   </Button>
                </div>
-               <div className={classes.noteDetailHeaderNH} style={{color: "white", fontSize: "16px"}}>
+               <Link 
+                     to={`/@me/folder/${note.folder}/note/${note._id}`}
+                     className={classes.noteDetailHeaderNH} 
+                     style={{color: "white", fontSize: "16px"}}
+                     >
                   <Button 
                   color="rgb(65 180 163)"
                   handleClick={(e) => {
@@ -91,7 +97,7 @@ export default function NoteData({note}){
                   >
                      Open Note
                   </Button>
-               </div>
+               </Link>
                <div className={classes.noteDetailHeaderNH} style={{color: "white", fontSize: "16px"}}>
                   <Button 
                   color="red"

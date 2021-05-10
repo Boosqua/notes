@@ -42,7 +42,8 @@ const useStyles = createUseStyles({
       flexDirection: "row",
       fontSize: 22,
       padding: ".5em",
-      margin: "0 .5em",
+      margin: ".5em",
+      
       borderRadius: 10,
       "&:hover": {
          background: options => options.hover ? "#e37d5e" : "inherit",
@@ -53,8 +54,9 @@ const useStyles = createUseStyles({
       display: "flex",
       flexDirection: "row",
       fontSize: 20,
-      padding: ".5em",
-      margin: "0 1.25em",
+      padding: ".25em .5em",
+      margin: ".5em 1.25em",
+      alignContent: "baseline",
       borderRadius: 10,
       background: options => options.show ? "#e37d5e" : "inherit",
       "&:hover": {

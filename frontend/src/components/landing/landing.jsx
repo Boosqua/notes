@@ -7,8 +7,7 @@ import {signup, login, clearSessionErrors} from "../../actions/session_actions"
 import { Redirect, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { setLoaded } from "../../actions/util_actions"
-//font-family: 'Oswald', sans-serif;
-//filter: brightness(100%)
+
 const useStyles = createUseStyles({
    //header
    header: {
@@ -202,7 +201,7 @@ const useStyles = createUseStyles({
 })
 
 
-function Header(props){
+export function Header(props){
    const classes = useStyles()
    const location = useLocation().pathname
    const signupRef = useRef(null)

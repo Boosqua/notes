@@ -2,7 +2,8 @@ import { SET_LOADED, SET_DATA_FETCH } from "../actions/util_actions"
 
 const initialState = {
    loaded: true,
-   dataFetch:false
+   dataFetch:false,
+   currentNote: {_id: null}
 }
 
 export default function( state = initialState, action ){
@@ -17,6 +18,11 @@ export default function( state = initialState, action ){
             ...state,
             dataFetch: action.dataFetch
          };
+      case 'SET_CURRENT_NOTE':
+         return {
+            ...state,
+            currentNote: action.note
+         }
       default:
          return state;
    }

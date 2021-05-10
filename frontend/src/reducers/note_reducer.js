@@ -19,15 +19,19 @@ export default function (state = {}, action) {
          return notes
       case RECEIVE_NOTE:
          if(!newState[action.note.folder]){
-            newState[action.note.folder] = []
+            newState[action.note.folder] = [action.note]
+            return newState
          }
-         for( let i = 0; i < newState[action.note.folder].length; i++ ){
-            if(newState[action.note.folder][i]._id === action.note._id){
-               newState[action.note.folder][i] = action.note
-               return newState
+         const found = {found: false}
+         const newNotes = newState[action.note.folder].map( (note) => {
+            if(note._id === action.note._id){
+               found.found = true
+               return action.note
             }
-         }
-         newState[action.note.folder].push(action.note)
+            return note
+         })
+         if(!found.found) newNotes.push(action.note)
+         newState[action.note.folder] = newNotes
          return newState
       case DELETE_NOTE:
          newState[action.note.folder] = newState[action.note.folder].filter(note => note._id !== action.note._id)
@@ -36,3 +40,5 @@ export default function (state = {}, action) {
          return state;
    }
 }
+
+

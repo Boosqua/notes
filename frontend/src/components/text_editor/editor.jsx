@@ -1,21 +1,39 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
-import { modules, formats } from "./custom_toolbar"
-import CustomToolbar from "./custom_toolbar"
 import { createUseStyles } from "react-jss"
-export default function Editor(props){
-   const [text, setText] = useState("Testing text")
+
+import CustomToolbar, { modules, formats } from "./custom_toolbar"
+
+import { receiveNote } from "../../actions/note_actions"
+import { updateNote } from "../../util/note_util"
+import { Delta } from "quill"
+
+export default function Editor({note, autoSave, handleSave, id}){
+   const dispatch = useDispatch()
+   const classes = useStyles({})
+   console.log(typeof note.body)
+   const [text, setText] = useState()
+   const delta = new Delta()
+
+   
    const handleChange = (value) => {
       setText(value)
+      // handleSave(text)
    }
-   const classes = useStyles({})
+
    return <div className={classes.container}>
       <CustomToolbar/>
       <div className={classes.boxShadow}>
          <ReactQuill modules={modules}
                         value={text} 
+                        initialValue={""}
                         formats={formats}
-                        onChange={handleChange}
+                        onChange={(value, delta, source, editor) => {
+                           debugger
+                           setText(editor.getHTML())
+
+                        }}
                         />
       </div>
       </div>
@@ -33,3 +51,4 @@ const useStyles = createUseStyles({
       height: "100%"
    }
 })
+
