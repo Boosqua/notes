@@ -19,7 +19,7 @@ export default function Editor({note, autoSave, handleSave, id}){
    
    const handleChange = (value) => {
       setText(value)
-      // handleSave(text)
+
    }
 
    return <div className={classes.container}>
