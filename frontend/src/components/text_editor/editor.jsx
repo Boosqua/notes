@@ -30,7 +30,7 @@ export default function Editor({note, autoSave, handleSave, id}){
                         initialValue={""}
                         formats={formats}
                         onChange={(value, delta, source, editor) => {
-                           debugger
+
                            setText(editor.getHTML())
 
                         }}
