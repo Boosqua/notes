@@ -1,13 +1,13 @@
 import React from "react"
 import {createUseStyles} from "react-jss";
-
+import {Link} from "react-router-dom"
 export default function NoteMenu(props){
    const classes = useStyles({left: props.pos.left, top: props.pos.top})
 
    return(
       <div className={classes.noteMenu}>
          <div className={classes.option} onClick={props.handleEdit}>Edit Note</div>
-         <div className={classes.option} onClick={props.handleEdit}>Share Note</div>
+         <Link to={`/shared_note/${props.note._id}`}className={classes.option} >Share Note</Link>
          <div className={classes.option} onClick={props.handleDelete}>Delete Note</div>
       </div>
    )

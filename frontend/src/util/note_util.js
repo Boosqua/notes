@@ -4,6 +4,10 @@ export const fetchNotes = (userId) => {
   return axios.get(`/api/notes/index/${userId}`);
 };
 
+export const fetchNote = (noteId) => {
+  return axios.get(`/api/notes/show/${noteId}`);
+};
+
 export const createNote = (noteData) => {
   return axios.post("/api/notes/create", noteData);
 };

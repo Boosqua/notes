@@ -2,7 +2,7 @@ import React from "react";
 
 import useStyles from "./styles"
 
-export default function FolderItem({folder, open=false, hover = true, onClick, }){
+export default function FolderItem({folder, open=false, hover = true, onClick }){
    const {color, name} = folder
    const classes = useStyles({hover, open})
    return (

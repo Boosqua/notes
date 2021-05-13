@@ -40,6 +40,7 @@ export default function NoteItem({note }){
          </div>
             <Modal show={show} setShow={() => setShow(false)}>
                   <NoteMenu pos={pos} 
+                  note={note}
                   handleEdit={() => {
                      setEdit(true)
                      setShow(false)

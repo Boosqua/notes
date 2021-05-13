@@ -5,7 +5,7 @@ import Delta from "quill-delta"
 
 import { modules, formats } from "./custom_toolbar"
 
-export default function Editor({body, id, handleSave, setRand }){
+export default function Editor({body, id, handleSave, setRand, readOnly=false }){
 
    const classes = useStyles({});
 
@@ -31,6 +31,7 @@ export default function Editor({body, id, handleSave, setRand }){
                               value={text} 
                               formats={formats}
                               onChange={handleChange()}
+                              readOnly={readOnly}
                               />
             </div>
           </div>

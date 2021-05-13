@@ -33,7 +33,12 @@ router.patch("/update/:noteId", async (req, res) => {
     .then((note) => res.json(note))
     .catch((err) => console.log(err));
 });
+router.get("/show/:id", (req,res) => {
 
+   Note.findById(req.params.id)
+      .then( (note) => res.json(note))
+      .catch( err => res.status.apply(404).json("Note not found!"))
+})
 router.get("/index/:ownerId", (req, res) => {
   const notes = Note.find({ owner: req.params.ownerId })
     .then((notes) => {

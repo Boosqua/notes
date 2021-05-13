@@ -4,6 +4,7 @@ import errors from './errors_reducer';
 import util from "./util_reducer"
 import folder from './folder_reducer'
 import note from "./note_reducer"
+import shared from "./shared_reducer"
 
 
 const RootReducer = combineReducers({
@@ -11,7 +12,8 @@ const RootReducer = combineReducers({
   session,
   util,
   folder,
-  note
+  note,
+  shared
 });
 
 export default RootReducer;
