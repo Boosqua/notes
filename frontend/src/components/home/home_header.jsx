@@ -24,7 +24,7 @@ export default function HomeHeader({setCollapse, collapse}) {
                } } show={show}/>   
          </i></div>
          </div>
-         <Modal show={show} setShow={() => setShow(false)} />
+         <Modal show={show} setShow={() => setShow(false)}/>
       </div>
    )
 }

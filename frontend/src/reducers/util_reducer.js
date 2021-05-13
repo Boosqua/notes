@@ -19,10 +19,13 @@ export default function( state = initialState, action ){
             dataFetch: action.dataFetch
          };
       case 'SET_CURRENT_NOTE':
-         return {
-            ...state,
-            currentNote: action.note
+
+         const newState= {
+            loaded: state.loaded,
+            dataFetch: state.dataFetch,
+            currentNote: Object.assign({}, action.note)
          }
+         return newState
       default:
          return state;
    }

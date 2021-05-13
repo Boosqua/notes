@@ -11,8 +11,9 @@ import Workspace from "./workspace/workspace";
 import NoteWorkspace from "./workspace/note_workspace";
 
 export default function UserRoutes(props) {
-   let { path } = useRouteMatch();
-   const [dataFetch, userId] = useSelector( state => [state.util.dataFetch, state.session.user.id]);
+   const { path } = useRouteMatch();
+   const [dataFetch, userId, currentNote] = useSelector( state => [state.util.dataFetch, state.session.user.id, state.util.currentNote]);
+   const notes = useSelector( state => state.note);
    const dispatch = useDispatch();
    useEffect(() => {
       if(!dataFetch){
@@ -20,7 +21,7 @@ export default function UserRoutes(props) {
             .then( () => fetchNotes(userId)(dispatch))
             .then(() => dispatch(setDataFetch(true)))
       }
-   }, []);
+   }, [dataFetch, userId]);
 
    return (
       dataFetch ?
@@ -38,3 +39,8 @@ export default function UserRoutes(props) {
       null
    )
 }
+
+const receiveCurrentNote = note => ({
+   type: "SET_CURRENT_NOTE",
+   note
+});

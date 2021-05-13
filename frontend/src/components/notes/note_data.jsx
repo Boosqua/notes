@@ -88,6 +88,10 @@ export default function NoteData({note}){
                      to={`/@me/folder/${note.folder}/note/${note._id}`}
                      className={classes.noteDetailHeaderNH} 
                      style={{color: "white", fontSize: "16px"}}
+                     onClick={() => {
+                        debugger
+                        dispatch(receiveCurrentNote(note))
+                     }}
                      >
                   <Button 
                   color="rgb(65 180 163)"
@@ -219,3 +223,7 @@ const useStyles = createUseStyles({
      }
   }
 })
+const receiveCurrentNote = note => ({
+   type: "SET_CURRENT_NOTE",
+   note
+});

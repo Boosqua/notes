@@ -6,6 +6,7 @@ import {
 
 export default function (state = {}, action) {
    Object.freeze(state)
+
    const newState = Object.assign({}, state)
    switch (action.type) {
       case RECEIVE_NOTES:
@@ -28,7 +29,7 @@ export default function (state = {}, action) {
                found.found = true
                return action.note
             }
-            return note
+            return Object.assign({}, note)
          })
          if(!found.found) newNotes.push(action.note)
          newState[action.note.folder] = newNotes

@@ -15,11 +15,14 @@ router.post("/create", (req, res) => {
 });
 
 router.patch("/update/:noteId", async (req, res) => {
-  const { errors, isValid } = validateNoteInput(req.body);
-  if (!isValid) {
-     console.log(errors)
-    return res.status(400).json(errors);
-  }
+//   const { errors, isValid } = validateNoteInput(req.body);
+//   if (!isValid) {
+//      console.log(errors)
+//     return res.status(400).json(errors);
+//   }
+   if(!req.params.noteId){
+      return res.status(400).json("no id ")
+   }
   const note = await Note.findById(req.params.noteId);
   for (const key in req.body) {
     if (key === "_id") continue;

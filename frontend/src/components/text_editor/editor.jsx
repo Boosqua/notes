@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
 import { createUseStyles } from "react-jss"
+import Delta from "quill-delta"
 
-import CustomToolbar, { modules, formats } from "./custom_toolbar"
+import { modules, formats } from "./custom_toolbar"
 
-import { receiveNote } from "../../actions/note_actions"
-import { updateNote } from "../../util/note_util"
-import { Delta } from "quill"
+export default function Editor({body, id, handleSave, setRand }){
 
-export default function Editor({note, autoSave, handleSave, id}){
-   const dispatch = useDispatch()
-   const classes = useStyles({})
-   console.log(typeof note.body)
-   const [text, setText] = useState()
-   const delta = new Delta()
+   const classes = useStyles({});
 
-   
-   const handleChange = (value) => {
-      setText(value)
+   const noteDelta = new Delta(body)
+   const [text, setText] = useState(noteDelta)
+   useEffect(() => {
+      setText(new Delta(body))
+      return() => {
+         setRand()
+      }
+   }, [id])
 
+   const handleChange = () => {
+      return (content, delta, source, editor) => {
+      const updated = new Delta(editor.getContents())
+      setText(updated)
+      handleSave(updated)
    }
-
+}
    return <div className={classes.container}>
-      <CustomToolbar/>
-      <div className={classes.boxShadow}>
-         <ReactQuill modules={modules}
-                        value={text} 
-                        initialValue={""}
-                        formats={formats}
-                        onChange={(value, delta, source, editor) => {
-
-                           setText(editor.getHTML())
-
-                        }}
-                        />
-      </div>
-      </div>
+            <div className={classes.boxShadow}>
+               <ReactQuill modules={modules}
+                              value={text} 
+                              formats={formats}
+                              onChange={handleChange()}
+                              />
+            </div>
+          </div>
 }
 
 const useStyles = createUseStyles({
@@ -51,4 +48,5 @@ const useStyles = createUseStyles({
       height: "100%"
    }
 })
+
 

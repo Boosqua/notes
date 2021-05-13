@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { createUseStyles } from "react-jss"
 import {useDispatch, useSelector} from "react-redux"
 
@@ -17,11 +17,9 @@ export default function NoteCrud({show, setShow, folder={}, edit=false, note={na
    const [tag, setTag] = useState("")
    const [color, setColor] = useState(note.color)
    const [allTags, setAllTags] = useState(note.tags)
+
    return(
          <Modal show={show} setShow={() => {
-               setName(note.name)
-               setAllTags(note.tags)
-               setColor(note.color)
                setShow()
                }}>
             <SlideMenu>
@@ -117,9 +115,6 @@ export default function NoteCrud({show, setShow, folder={}, edit=false, note={na
                         }
                         edit ? updateNote({...newNote, _id: note._id})(dispatch) : createNote(newNote)(dispatch)
                         setShow()
-                        setName(note.name)
-                        setAllTags(note.tags)
-                        setColor(note.color)
                      }}
                      >
                   {

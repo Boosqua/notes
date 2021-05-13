@@ -23,7 +23,7 @@ export default function Sidebar({folder, notes}){
             null
             :
             <div>
-               {notes.map( (note, i) => <NoteItem note={note} key={i} />)}
+               {notes.map( (note, i) => <NoteItem note={note} key={note._id} />)}
                <Button handleClick={() => setShow(true)} expand={true}>Create New Note</Button>
             </div>
          }

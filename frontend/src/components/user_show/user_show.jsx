@@ -42,7 +42,7 @@ const useStyles = createUseStyles({
       position: "absolute",
       top: "2em",
       right: 0,
-      zIndex: 20,
+      zIndex: 9999,
       padding: 20,
       margin: "10px",
       color: "white",
@@ -79,6 +79,7 @@ const useStyles = createUseStyles({
   logoutButton: {
      padding: ".5em",
      background: "#42b4a2",
+     zIndex: 9999,
      borderRadius: "10px",
      width: "fit-content",
      fontSize: 20,

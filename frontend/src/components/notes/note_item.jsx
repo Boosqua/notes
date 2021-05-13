@@ -1,5 +1,6 @@
 import React, {useState, useRef} from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouteMatch } from "react-router";
 import {Link} from "react-router-dom";
 
 import useStyles from "../workspace/styles";
@@ -10,15 +11,17 @@ import NoteCrud from "../notes/note_crud"
 
 export default function NoteItem({note }){
    const [show, setShow] = useState(false)
-   const classes = useStyles({hover: true, show: show})
    const [pos, setPos] = useState({left: 0, top: 0})
    const [edit, setEdit] = useState(false)
    const dispatch = useDispatch()
    const linkRef = useRef(null)
-
+   const { params } = useRouteMatch()
+   const selected = params.noteId === note._id
+   const classes = useStyles({hover: true, show: selected, selected: selected})
    return (
       <>
       <div className={classes.noteItem} onClick={() => {
+         dispatch(receiveCurrentNote(note))
          linkRef.current.click()
       }}>
             <div className={classes.itemIcon} style={{color: note.color}}>
@@ -56,3 +59,7 @@ export default function NoteItem({note }){
       </>
    )
 }
+const receiveCurrentNote = note => ({
+   type: "SET_CURRENT_NOTE",
+   note
+});
