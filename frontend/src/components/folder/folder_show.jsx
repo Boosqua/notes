@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modal/modal"
 import FolderC from "./folder_c"
 import { deleteFolder } from "../../actions/folder_actions"
+import {Link} from "react-router-dom"
 function parseDate(data) {
    const date = new Date(data)
    return new Intl.DateTimeFormat('en-US').format(date)
@@ -17,6 +18,7 @@ export default function FolderShow({header}){
          return 1
       }
    }))
+   const notes = useSelector( state => state.note)
    const [modal, setModal] = useState(false);
    const [edit, setEdit] = useState({ oldName: "", oldAllTags: [], oldColor: "white", _id: null})
    const [remove, setRemove] = useState({show: false, folder: null})
@@ -103,6 +105,30 @@ export default function FolderShow({header}){
                                  <div className={classes.arrowDoc}><i class="fas fa-chevron-right"></i></div>
                               }
                            </div>
+                            {
+                              doc ? 
+                              <div className={classes.folderDoc}>
+                                 {
+                                    notes[folder._id] ?
+                                    notes[folder._id].map( (note) => (
+                                       <Link to={`/@me/folder/${note.folder}/note/${note._id}`} key={note._id}>
+                                          <div className={classes.noteRow}>
+                                             <div className={classes.noteIcon} style={{color: note.color}}>
+                                                <i class="fas fa-file-alt"/>
+                                             </div>
+                                             <div>
+                                                {note.name}
+                                             </div>
+                                          </div>
+                                       </Link>
+                                    ))
+                                    :
+                                    <div>You Haven't Added Any Notes Yet!</div>
+                                 }
+                              </div>
+                              : 
+                              null
+                           }
                         </div>
                         <div className={classes.folderDocuments} >
                            <div style={{cursor: "auto"}} className={classes.folderRow}>Folder Tags</div>

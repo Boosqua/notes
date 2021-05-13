@@ -281,6 +281,15 @@ const useStyles = createUseStyles({
     animation: "$moveDown 1s",
     transition: "height 1s",
   },
+  folderDoc: {
+    display: (options) => (options.doc ? "block" : "none"),
+    fontSize: 14,
+    padding: "0 10px 10px 10px",
+    overflow: "hidden",
+    maxHeight: "100%",
+    animation: "$moveDown 1s",
+    transition: "height 1s",
+  },
   folderDocuments: {},
   folderInfoH: {
     width: "fit-content",
@@ -346,6 +355,19 @@ const useStyles = createUseStyles({
   deleteWarning: {
     margin: "10px 10px 10px 10px",
   },
+  noteRow: {
+     display: "flex",
+     flexDirection: "row",
+     color: "white",
+     fontSize: 18,
+     "&:hover": {
+        cursor: "pointer",
+        color: "#1a0dab"
+     }
+  },
+  noteIcon: {
+     marginRight: "1em"
+  }
 });
 
 export default useStyles;
