@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch } from "react-router";
 
-import Header from "../home/home_header"
+import {Header} from "../landing/landing"
 import Editor from "../text_editor/editor"
 import Toolbar from "../text_editor/custom_toolbar"
 import { fetchNote } from "../../actions/note_actions"
@@ -29,7 +29,7 @@ export default function NoteShare(){
                   sharedNote.name
                }
                />
-            <Toolbar />
+            <Toolbar hide={true}/>
             <Editor  
                      body={decodeDelta(sharedNote.body)} 
                      id={sharedNote._id}

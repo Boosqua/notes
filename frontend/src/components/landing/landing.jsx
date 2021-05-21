@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react"
 import { createUseStyles } from "react-jss";
-import image from "../../img/LOL.jpeg"
+import image from "../../img/home_page.jpeg"
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux"
 import {signup, login, clearSessionErrors} from "../../actions/session_actions"
 import { Redirect, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { setLoaded } from "../../actions/util_actions"
+import Footer from "./footer"
 
 const useStyles = createUseStyles({
    //header
@@ -81,7 +82,8 @@ const useStyles = createUseStyles({
       fontWeight: "bolder"
    },
    h3Template: {
-      fontSize: 30
+      fontSize: 30,
+      marginLeft: "1em"
    },
    gradientText: {
       background: "linear-gradient(0.25turn, #e27d5e, #c48c9d, #c48c9d)",
@@ -94,13 +96,13 @@ const useStyles = createUseStyles({
    },
    welcomeImage: {
       gridArea: "welcomeImage",
-      height: "800px",
+      height: "600px",
       overflow: "hidden",
       marginTop: 2
    },
    imageContent: {
       height: "100%",
-      width: "auto"
+      // width: "auto"
    },
    //modal
    modalContainer: {
@@ -164,6 +166,12 @@ const useStyles = createUseStyles({
          cursor: "pointer"
       }
    },
+   div2: {
+      fontSize: 30,
+      margin: "1em",
+      width: "50%",
+      borderBottom: "1px solid grey"
+   },
    //animations
    "@keyframes hoverButton": {
     "0%": {
@@ -226,7 +234,11 @@ export function Header(props){
    return(
       <div className={classes.hContainer}>
          <div className={ animation ? classes.header : classes.headerAfter } >
-            <span className={classes.gradientText}>NoteFly</span>
+            <span className={classes.gradientText}>
+               <Link to="/">
+                NoteFly 
+               </Link>
+            </span>
          </div>
          <div className={classes.sessionButtonContainer}>
             {
@@ -267,7 +279,7 @@ export function Header(props){
          {/* there has to be a better way lol */}
          <Link ref={loginRef} style={{display: "none"}}to="/login" />
          <Link ref={signupRef} style={{display: "none"}}to="/signup" />
-         <Link ref={aboutRef} style={{display: "none"}}to="/about" />
+         <Link ref={aboutRef} style={{display: "none"}}to="/shared_note/60a77cc854abf50c3f5af04e" />
          <Link ref={homeRef} style={{display: "none"}}to="/@me" />
 
       </div>
@@ -482,22 +494,24 @@ function LandingModal(props){
 export default function Landing(props){
    const classes = useStyles()
    return (
-      <div>
+      <div >
          <Header />
          <div className={classes.welcomeContainer}>
             <div className={classes.welcomeMessage}>
                <span className={classes.h1Template}>
-               I'm a catchy one <span className={classes.gradientText}>liner</span> about how much you need my app
+               The new simple way to keep notes!
                </span>
                <br/>
+               <div className={classes.div2}></div>
                <span className={classes.h3Template}>
-                  I'm a snappy follow up that will make you love my <span className={classes.gradientText}>app</span> :D
+                  Keep all your notes organized in one place with <span className={classes.gradientText}>NoteFly</span>
                </span>
             </div>
             <div className={classes.welcomeImage}>
                <img className={classes.imageContent}src={image}/>
             </div>
          </div>
+         <Footer/>
       </div>
    )
 }

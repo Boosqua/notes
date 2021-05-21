@@ -2,8 +2,8 @@ import React, { useRef } from "react"
 import { createUseStyles } from "react-jss";
 import {Quill} from "react-quill"
 // tool bar component
-export default function CustomToolbar({children}){
-   const classes = useStyles()
+export default function CustomToolbar({hide, children}){
+   const classes = useStyles({hide})
    const keyRef = useRef(null)
 
    return(
@@ -152,7 +152,7 @@ export const formats = [
 // styling
 const useStyles = createUseStyles({
    toolbar: {
-      display: "flex",
+      display: options => options.hide ? "none": "flex",
       flexDirection: "row",
       width: "100%",
       padding: "12px 15px",
