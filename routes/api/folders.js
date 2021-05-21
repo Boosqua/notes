@@ -48,7 +48,6 @@ router.get('/test', (req, res) => {
 })
 
 router.delete('/destroy/:id', ( req, res ) => {
-   console.log(req.params)
    Folder.findByIdAndDelete(req.params.id, (err) => {
       if(err) return console.log(err)
       res.json({folderId: req.params.id})
