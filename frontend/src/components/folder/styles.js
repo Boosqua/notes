@@ -337,7 +337,7 @@ const useStyles = createUseStyles({
       padding: 0,
     },
     to: {
-      height: "5em",
+      height: "fit-content",
     },
   },
   buttonMargin: {

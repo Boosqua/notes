@@ -142,6 +142,11 @@ export default function FolderShow({header}){
                               </div>
                            ))}
                         </div>
+                           <div className={classes.buttonMargin}>
+                           <Link to={`/@me/folder/${folder._id}`} className={classes.tagButton}>
+                              Open Folder
+                           </Link >
+                           </div>
                         <div className={classes.buttonMargin}>
                         <div 
                         className={classes.tagButton}
