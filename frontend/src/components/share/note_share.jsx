@@ -8,18 +8,17 @@ import Toolbar from "../text_editor/custom_toolbar"
 import { fetchNote } from "../../actions/note_actions"
 
 export default function NoteShare(){
-   const sharedNote = useSelector( state => state.shared.note )
+   const sharedNote = useSelector( state => state.shared )
    const errors = useSelector( state => state.errors.notes)
    const {params} = useRouteMatch()
    const dispatch = useDispatch()
    const [query, setQuery] = useState(false)
-   console.log(sharedNote)
    useEffect(() => {
       fetchNote(params.id)(dispatch)
       setQuery(true)
-   }, [sharedNote])
-   return ( query ?
-      <div>
+   }, [sharedNote._id, params.id])
+   return ( query  ?
+      <div style={{height: "100vh"}}>
          <Header 
                collapsing={false} 
                mainText={

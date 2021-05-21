@@ -252,6 +252,15 @@ export function Header(props){
                :
                (
                <div className={classes.sessionButtonContainer}>
+                  <div className={classes.sessionB} onClick={async () => {
+                     const email = "TheFly@notefly.com"
+                     const password= "password"
+                     await login({email, password})(dispatch)
+                     homeRef.current.click()
+                  }}>
+                     demo
+                  </div>
+                  <div className={classes.div} />
                   <div className={clsx({[classes.sessionB]: !(location === "/signup")}, {[classes.selected]: (location === "/signup")})} onClick={handleClick(signupRef)}>
                      {
                         location === "/signup" ? <LandingModal> <SignUpForm/></LandingModal> : null
@@ -281,7 +290,6 @@ export function Header(props){
          <Link ref={signupRef} style={{display: "none"}}to="/signup" />
          <Link ref={aboutRef} style={{display: "none"}}to="/shared_note/60a77cc854abf50c3f5af04e" />
          <Link ref={homeRef} style={{display: "none"}}to="/@me" />
-
       </div>
    )
 }

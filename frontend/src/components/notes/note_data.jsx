@@ -89,7 +89,7 @@ export default function NoteData({note}){
                      className={classes.noteDetailHeaderNH} 
                      style={{color: "white", fontSize: "16px"}}
                      onClick={() => {
-                        debugger
+
                         dispatch(receiveCurrentNote(note))
                      }}
                      >

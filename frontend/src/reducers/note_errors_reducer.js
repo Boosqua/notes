@@ -7,7 +7,6 @@ const _nullErrors = [];
 export default function (state = _nullErrors, action) {
   switch (action.type) {
     case RECEIVE_NOTE_ERRORS:
-       debugger
        return action.errors
     default:
       return state;
